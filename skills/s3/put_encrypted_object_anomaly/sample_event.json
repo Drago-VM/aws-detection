@@ -1,0 +1,309 @@
+{
+  "_index": "aws-sqs-01",
+  "_id": "1877089d65-000000001716",
+  "_version": 1,
+  "_score": 0,
+  "_source": {
+    "agent": {
+      "name": "ip-172-31-27-85",
+      "id": "5137bd51-76ff-4cbf-96c4-5c16e8e79f07",
+      "ephemeral_id": "b1c60f24-5018-4469-9852-eba44f96f267",
+      "type": "filebeat",
+      "version": "8.6.2"
+    },
+    "log": {
+      "file": {
+        "path": "https://elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com/AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1115Z_ENV1ZidNx7xXycJG.json.gz"
+      },
+      "offset": 1716
+    },
+    "source": {
+      "address": "cloudtrail.amazonaws.com"
+    },
+    "fileset": {
+      "name": "cloudtrail"
+    },
+    "tags": [
+      "forwarded"
+    ],
+    "cloud": {
+      "provider": "",
+      "region": "us-east-1"
+    },
+    "input": {
+      "type": "aws-s3"
+    },
+    "@timestamp": "2025-07-18T11:11:18.000Z",
+    "ecs": {
+      "version": "1.12.0"
+    },
+    "service": {
+      "type": "aws"
+    },
+    "aws": {
+      "s3": {
+        "bucket": {
+          "name": "elk-aws-cloudtrail-logs",
+          "arn": "arn:aws:s3:::elk-aws-cloudtrail-logs"
+        },
+        "object": {
+          "key": "AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1115Z_ENV1ZidNx7xXycJG.json.gz"
+        }
+      },
+      "cloudtrail": {
+        "flattened": {
+          "additional_eventdata": {
+            "SignatureVersion": "SigV4",
+            "CipherSuite": "TLS_AES_128_GCM_SHA256",
+            "bytesTransferredIn": 2108,
+            "SSEApplied": "SSE_KMS",
+            "AuthenticationMethod": "AuthHeader",
+            "x-amz-id-2": "Gp38nUz0nvOXDHdnAW7Pvr3eaJGwnTVbHNtgt7fhjnFmQQh8jM7m55cYeXd2J19508HzJGX1gVY=",
+            "bytesTransferredOut": 0
+          },
+          "request_parameters": {
+            "bucketName": "elk-aws-cloudtrail-logs",
+            "x-amz-acl": "bucket-owner-full-control",
+            "x-amz-server-side-encryption-context": "eyJhd3M6Y2xvdWR0cmFpbDphcm4iOiJhcm46YXdzOmNsb3VkdHJhaWw6dXMtZWFzdC0xOjg1MTcyNTQ5MTIwOTp0cmFpbC9FTEstTW9uaXRvcmluZyJ9",
+            "x-amz-server-side-encryption-aws-kms-key-id": "arn:aws:kms:us-east-1:851725491209:key/249b21dd-9fba-4ad3-b8ae-39e8de7d2dd1",
+            "Host": "elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com",
+            "x-amz-server-side-encryption": "aws:kms",
+            "key": "AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1110Z_Jrpezilqk7Zi3Rjq.json.gz"
+          },
+          "response_elements": {
+            "x-amz-server-side-encryption-context": "eyJhd3M6Y2xvdWR0cmFpbDphcm4iOiJhcm46YXdzOmNsb3VkdHJhaWw6dXMtZWFzdC0xOjg1MTcyNTQ5MTIwOTp0cmFpbC9FTEstTW9uaXRvcmluZyIsImF3czpzMzphcm4iOiJhcm46YXdzOnMzOjo6ZWxrLWF3cy1jbG91ZHRyYWlsLWxvZ3MvQVdTTG9ncy84NTE3MjU0OTEyMDkvQ2xvdWRUcmFpbC91cy1lYXN0LTEvMjAyNS8wNy8xOC84NTE3MjU0OTEyMDlfQ2xvdWRUcmFpbF91cy1lYXN0LTFfMjAyNTA3MThUMTExMFpfSnJwZXppbHFrN1ppM1JqcS5qc29uLmd6In0=",
+            "x-amz-server-side-encryption-aws-kms-key-id": "arn:aws:kms:us-east-1:851725491209:key/249b21dd-9fba-4ad3-b8ae-39e8de7d2dd1",
+            "x-amz-server-side-encryption": "aws:kms"
+          }
+        },
+        "additional_eventdata": "{SignatureVersion=SigV4, CipherSuite=TLS_AES_128_GCM_SHA256, bytesTransferredIn=2108, SSEApplied=SSE_KMS, AuthenticationMethod=AuthHeader, x-amz-id-2=Gp38nUz0nvOXDHdnAW7Pvr3eaJGwnTVbHNtgt7fhjnFmQQh8jM7m55cYeXd2J19508HzJGX1gVY=, bytesTransferredOut=0}",
+        "recipient_account_id": "851725491209",
+        "event_category": "Data",
+        "request_parameters": "{bucketName=elk-aws-cloudtrail-logs, x-amz-acl=bucket-owner-full-control, x-amz-server-side-encryption-context=eyJhd3M6Y2xvdWR0cmFpbDphcm4iOiJhcm46YXdzOmNsb3VkdHJhaWw6dXMtZWFzdC0xOjg1MTcyNTQ5MTIwOTp0cmFpbC9FTEstTW9uaXRvcmluZyJ9, x-amz-server-side-encryption-aws-kms-key-id=arn:aws:kms:us-east-1:851725491209:key/249b21dd-9fba-4ad3-b8ae-39e8de7d2dd1, Host=elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com, x-amz-server-side-encryption=aws:kms, key=AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1110Z_Jrpezilqk7Zi3Rjq.json.gz}",
+        "event_version": "1.11",
+        "event_type": "AwsApiCall",
+        "read_only": false,
+        "user_identity": {
+          "invoked_by": "cloudtrail.amazonaws.com",
+          "type": "AWSService"
+        },
+        "request_id": "1AKXPES9NJFZA7WA",
+        "response_elements": "{x-amz-server-side-encryption-context=eyJhd3M6Y2xvdWR0cmFpbDphcm4iOiJhcm46YXdzOmNsb3VkdHJhaWw6dXMtZWFzdC0xOjg1MTcyNTQ5MTIwOTp0cmFpbC9FTEstTW9uaXRvcmluZyIsImF3czpzMzphcm4iOiJhcm46YXdzOnMzOjo6ZWxrLWF3cy1jbG91ZHRyYWlsLWxvZ3MvQVdTTG9ncy84NTE3MjU0OTEyMDkvQ2xvdWRUcmFpbC91cy1lYXN0LTEvMjAyNS8wNy8xOC84NTE3MjU0OTEyMDlfQ2xvdWRUcmFpbF91cy1lYXN0LTFfMjAyNTA3MThUMTExMFpfSnJwZXppbHFrN1ppM1JqcS5qc29uLmd6In0=, x-amz-server-side-encryption-aws-kms-key-id=arn:aws:kms:us-east-1:851725491209:key/249b21dd-9fba-4ad3-b8ae-39e8de7d2dd1, x-amz-server-side-encryption=aws:kms}",
+        "management_event": false,
+        "vpc_endpoint_id": "cloudtrail.amazonaws.com"
+      }
+    },
+    "event": {
+      "ingested": "2025-07-18T11:16:20.863186294Z",
+      "original": "{\"eventVersion\":\"1.11\",\"userIdentity\":{\"type\":\"AWSService\",\"invokedBy\":\"cloudtrail.amazonaws.com\"},\"eventTime\":\"2025-07-18T11:11:18Z\",\"eventSource\":\"s3.amazonaws.com\",\"eventName\":\"PutObject\",\"awsRegion\":\"us-east-1\",\"sourceIPAddress\":\"cloudtrail.amazonaws.com\",\"userAgent\":\"cloudtrail.amazonaws.com\",\"requestParameters\":{\"bucketName\":\"elk-aws-cloudtrail-logs\",\"x-amz-acl\":\"bucket-owner-full-control\",\"x-amz-server-side-encryption-context\":\"eyJhd3M6Y2xvdWR0cmFpbDphcm4iOiJhcm46YXdzOmNsb3VkdHJhaWw6dXMtZWFzdC0xOjg1MTcyNTQ5MTIwOTp0cmFpbC9FTEstTW9uaXRvcmluZyJ9\",\"x-amz-server-side-encryption-aws-kms-key-id\":\"arn:aws:kms:us-east-1:851725491209:key/249b21dd-9fba-4ad3-b8ae-39e8de7d2dd1\",\"Host\":\"elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com\",\"x-amz-server-side-encryption\":\"aws:kms\",\"key\":\"AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1110Z_Jrpezilqk7Zi3Rjq.json.gz\"},\"responseElements\":{\"x-amz-server-side-encryption-aws-kms-key-id\":\"arn:aws:kms:us-east-1:851725491209:key/249b21dd-9fba-4ad3-b8ae-39e8de7d2dd1\",\"x-amz-server-side-encryption\":\"aws:kms\",\"x-amz-server-side-encryption-context\":\"eyJhd3M6Y2xvdWR0cmFpbDphcm4iOiJhcm46YXdzOmNsb3VkdHJhaWw6dXMtZWFzdC0xOjg1MTcyNTQ5MTIwOTp0cmFpbC9FTEstTW9uaXRvcmluZyIsImF3czpzMzphcm4iOiJhcm46YXdzOnMzOjo6ZWxrLWF3cy1jbG91ZHRyYWlsLWxvZ3MvQVdTTG9ncy84NTE3MjU0OTEyMDkvQ2xvdWRUcmFpbC91cy1lYXN0LTEvMjAyNS8wNy8xOC84NTE3MjU0OTEyMDlfQ2xvdWRUcmFpbF91cy1lYXN0LTFfMjAyNTA3MThUMTExMFpfSnJwZXppbHFrN1ppM1JqcS5qc29uLmd6In0=\"},\"additionalEventData\":{\"SignatureVersion\":\"SigV4\",\"CipherSuite\":\"TLS_AES_128_GCM_SHA256\",\"bytesTransferredIn\":2108,\"SSEApplied\":\"SSE_KMS\",\"AuthenticationMethod\":\"AuthHeader\",\"x-amz-id-2\":\"Gp38nUz0nvOXDHdnAW7Pvr3eaJGwnTVbHNtgt7fhjnFmQQh8jM7m55cYeXd2J19508HzJGX1gVY=\",\"bytesTransferredOut\":0},\"requestID\":\"1AKXPES9NJFZA7WA\",\"eventID\":\"8a1cf688-95b0-31f1-9ff3-8b758cf631a8\",\"readOnly\":false,\"resources\":[{\"accountId\":\"851725491209\",\"type\":\"AWS::S3::Bucket\",\"ARN\":\"arn:aws:s3:::elk-aws-cloudtrail-logs\"},{\"type\":\"AWS::S3::Object\",\"ARN\":\"arn:aws:s3:::elk-aws-cloudtrail-logs/AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1110Z_Jrpezilqk7Zi3Rjq.json.gz\"}],\"eventType\":\"AwsApiCall\",\"managementEvent\":false,\"recipientAccountId\":\"851725491209\",\"sharedEventID\":\"eefa2716-dc2e-44a7-94e8-a7a38c5c276f\",\"vpcEndpointId\":\"cloudtrail.amazonaws.com\",\"vpcEndpointAccountId\":\"cloudtrail.amazonaws.com\",\"eventCategory\":\"Data\"}",
+      "provider": "s3.amazonaws.com",
+      "created": "2025-07-18T11:16:20.756Z",
+      "kind": "event",
+      "module": "aws",
+      "action": "PutObject",
+      "id": "8a1cf688-95b0-31f1-9ff3-8b758cf631a8",
+      "type": "info",
+      "dataset": "aws.cloudtrail",
+      "outcome": "success"
+    },
+    "user_agent": {
+      "original": "cloudtrail.amazonaws.com",
+      "name": "Other",
+      "device": {
+        "name": "Other"
+      }
+    }
+  },
+  "fields": {
+    "aws.cloudtrail.request_parameters.text": [
+      "{bucketName=elk-aws-cloudtrail-logs, x-amz-acl=bucket-owner-full-control, x-amz-server-side-encryption-context=eyJhd3M6Y2xvdWR0cmFpbDphcm4iOiJhcm46YXdzOmNsb3VkdHJhaWw6dXMtZWFzdC0xOjg1MTcyNTQ5MTIwOTp0cmFpbC9FTEstTW9uaXRvcmluZyJ9, x-amz-server-side-encryption-aws-kms-key-id=arn:aws:kms:us-east-1:851725491209:key/249b21dd-9fba-4ad3-b8ae-39e8de7d2dd1, Host=elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com, x-amz-server-side-encryption=aws:kms, key=AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1110Z_Jrpezilqk7Zi3Rjq.json.gz}"
+    ],
+    "aws.cloudtrail.flattened.additional_eventdata": [
+      {
+        "SignatureVersion": "SigV4",
+        "CipherSuite": "TLS_AES_128_GCM_SHA256",
+        "bytesTransferredIn": 2108,
+        "SSEApplied": "SSE_KMS",
+        "AuthenticationMethod": "AuthHeader",
+        "x-amz-id-2": "Gp38nUz0nvOXDHdnAW7Pvr3eaJGwnTVbHNtgt7fhjnFmQQh8jM7m55cYeXd2J19508HzJGX1gVY=",
+        "bytesTransferredOut": 0
+      }
+    ],
+    "user_agent.original.text": [
+      "cloudtrail.amazonaws.com"
+    ],
+    "aws.cloudtrail.flattened.response_elements": [
+      {
+        "x-amz-server-side-encryption-context": "eyJhd3M6Y2xvdWR0cmFpbDphcm4iOiJhcm46YXdzOmNsb3VkdHJhaWw6dXMtZWFzdC0xOjg1MTcyNTQ5MTIwOTp0cmFpbC9FTEstTW9uaXRvcmluZyIsImF3czpzMzphcm4iOiJhcm46YXdzOnMzOjo6ZWxrLWF3cy1jbG91ZHRyYWlsLWxvZ3MvQVdTTG9ncy84NTE3MjU0OTEyMDkvQ2xvdWRUcmFpbC91cy1lYXN0LTEvMjAyNS8wNy8xOC84NTE3MjU0OTEyMDlfQ2xvdWRUcmFpbF91cy1lYXN0LTFfMjAyNTA3MThUMTExMFpfSnJwZXppbHFrN1ppM1JqcS5qc29uLmd6In0=",
+        "x-amz-server-side-encryption-aws-kms-key-id": "arn:aws:kms:us-east-1:851725491209:key/249b21dd-9fba-4ad3-b8ae-39e8de7d2dd1",
+        "x-amz-server-side-encryption": "aws:kms"
+      }
+    ],
+    "traefik.access.user_agent.name": [
+      "Other"
+    ],
+    "service.type": [
+      "aws"
+    ],
+    "aws.cloudtrail.additional_eventdata": [
+      "{SignatureVersion=SigV4, CipherSuite=TLS_AES_128_GCM_SHA256, bytesTransferredIn=2108, SSEApplied=SSE_KMS, AuthenticationMethod=AuthHeader, x-amz-id-2=Gp38nUz0nvOXDHdnAW7Pvr3eaJGwnTVbHNtgt7fhjnFmQQh8jM7m55cYeXd2J19508HzJGX1gVY=, bytesTransferredOut=0}"
+    ],
+    "aws.cloudtrail.response_elements": [
+      "{x-amz-server-side-encryption-context=eyJhd3M6Y2xvdWR0cmFpbDphcm4iOiJhcm46YXdzOmNsb3VkdHJhaWw6dXMtZWFzdC0xOjg1MTcyNTQ5MTIwOTp0cmFpbC9FTEstTW9uaXRvcmluZyIsImF3czpzMzphcm4iOiJhcm46YXdzOnMzOjo6ZWxrLWF3cy1jbG91ZHRyYWlsLWxvZ3MvQVdTTG9ncy84NTE3MjU0OTEyMDkvQ2xvdWRUcmFpbC91cy1lYXN0LTEvMjAyNS8wNy8xOC84NTE3MjU0OTEyMDlfQ2xvdWRUcmFpbF91cy1lYXN0LTFfMjAyNTA3MThUMTExMFpfSnJwZXppbHFrN1ppM1JqcS5qc29uLmd6In0=, x-amz-server-side-encryption-aws-kms-key-id=arn:aws:kms:us-east-1:851725491209:key/249b21dd-9fba-4ad3-b8ae-39e8de7d2dd1, x-amz-server-side-encryption=aws:kms}"
+    ],
+    "traefik.access.user_agent.original": [
+      "cloudtrail.amazonaws.com"
+    ],
+    "agent.name": [
+      "ip-172-31-27-85"
+    ],
+    "aws.cloudtrail.user_identity.invoked_by": [
+      "cloudtrail.amazonaws.com"
+    ],
+    "aws.cloudtrail.management_event": [
+      "false"
+    ],
+    "event.kind": [
+      "event"
+    ],
+    "event.outcome": [
+      "success"
+    ],
+    "user_agent.original": [
+      "cloudtrail.amazonaws.com"
+    ],
+    "cloud.region": [
+      "us-east-1"
+    ],
+    "fileset.name": [
+      "cloudtrail"
+    ],
+    "input.type": [
+      "aws-s3"
+    ],
+    "log.offset": [
+      1716
+    ],
+    "user_agent.name": [
+      "Other"
+    ],
+    "agent.hostname": [
+      "ip-172-31-27-85"
+    ],
+    "tags": [
+      "forwarded"
+    ],
+    "cloud.provider": [
+      ""
+    ],
+    "event.provider": [
+      "s3.amazonaws.com"
+    ],
+    "agent.id": [
+      "5137bd51-76ff-4cbf-96c4-5c16e8e79f07"
+    ],
+    "ecs.version": [
+      "1.12.0"
+    ],
+    "event.created": [
+      "2025-07-18T11:16:20.756Z"
+    ],
+    "aws.cloudtrail.event_version": [
+      "1.11"
+    ],
+    "agent.version": [
+      "8.6.2"
+    ],
+    "aws.cloudtrail.read_only": [
+      "false"
+    ],
+    "aws.cloudtrail.event_category": [
+      "Data"
+    ],
+    "aws.cloudtrail.user_identity.type": [
+      "AWSService"
+    ],
+    "aws.s3.bucket.arn": [
+      "arn:aws:s3:::elk-aws-cloudtrail-logs"
+    ],
+    "aws.cloudtrail.recipient_account_id": [
+      "851725491209"
+    ],
+    "aws.cloudtrail.request_id": [
+      "1AKXPES9NJFZA7WA"
+    ],
+    "source.address": [
+      "cloudtrail.amazonaws.com"
+    ],
+    "aws.cloudtrail.flattened.request_parameters": [
+      {
+        "bucketName": "elk-aws-cloudtrail-logs",
+        "x-amz-acl": "bucket-owner-full-control",
+        "x-amz-server-side-encryption-context": "eyJhd3M6Y2xvdWR0cmFpbDphcm4iOiJhcm46YXdzOmNsb3VkdHJhaWw6dXMtZWFzdC0xOjg1MTcyNTQ5MTIwOTp0cmFpbC9FTEstTW9uaXRvcmluZyJ9",
+        "x-amz-server-side-encryption-aws-kms-key-id": "arn:aws:kms:us-east-1:851725491209:key/249b21dd-9fba-4ad3-b8ae-39e8de7d2dd1",
+        "Host": "elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com",
+        "x-amz-server-side-encryption": "aws:kms",
+        "key": "AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1110Z_Jrpezilqk7Zi3Rjq.json.gz"
+      }
+    ],
+    "agent.type": [
+      "filebeat"
+    ],
+    "event.module": [
+      "aws"
+    ],
+    "aws.cloudtrail.response_elements.text": [
+      "{x-amz-server-side-encryption-context=eyJhd3M6Y2xvdWR0cmFpbDphcm4iOiJhcm46YXdzOmNsb3VkdHJhaWw6dXMtZWFzdC0xOjg1MTcyNTQ5MTIwOTp0cmFpbC9FTEstTW9uaXRvcmluZyIsImF3czpzMzphcm4iOiJhcm46YXdzOnMzOjo6ZWxrLWF3cy1jbG91ZHRyYWlsLWxvZ3MvQVdTTG9ncy84NTE3MjU0OTEyMDkvQ2xvdWRUcmFpbC91cy1lYXN0LTEvMjAyNS8wNy8xOC84NTE3MjU0OTEyMDlfQ2xvdWRUcmFpbF91cy1lYXN0LTFfMjAyNTA3MThUMTExMFpfSnJwZXppbHFrN1ppM1JqcS5qc29uLmd6In0=, x-amz-server-side-encryption-aws-kms-key-id=arn:aws:kms:us-east-1:851725491209:key/249b21dd-9fba-4ad3-b8ae-39e8de7d2dd1, x-amz-server-side-encryption=aws:kms}"
+    ],
+    "aws.cloudtrail.event_type": [
+      "AwsApiCall"
+    ],
+    "aws.s3.bucket.name": [
+      "elk-aws-cloudtrail-logs"
+    ],
+    "aws.cloudtrail.additional_eventdata.text": [
+      "{SignatureVersion=SigV4, CipherSuite=TLS_AES_128_GCM_SHA256, bytesTransferredIn=2108, SSEApplied=SSE_KMS, AuthenticationMethod=AuthHeader, x-amz-id-2=Gp38nUz0nvOXDHdnAW7Pvr3eaJGwnTVbHNtgt7fhjnFmQQh8jM7m55cYeXd2J19508HzJGX1gVY=, bytesTransferredOut=0}"
+    ],
+    "event.action": [
+      "PutObject"
+    ],
+    "event.ingested": [
+      "2025-07-18T11:16:20.863Z"
+    ],
+    "@timestamp": [
+      "2025-07-18T11:11:18.000Z"
+    ],
+    "event.type": [
+      "info"
+    ],
+    "log.file.path": [
+      "https://elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com/AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1115Z_ENV1ZidNx7xXycJG.json.gz"
+    ],
+    "agent.ephemeral_id": [
+      "b1c60f24-5018-4469-9852-eba44f96f267"
+    ],
+    "aws.cloudtrail.request_parameters": [
+      "{bucketName=elk-aws-cloudtrail-logs, x-amz-acl=bucket-owner-full-control, x-amz-server-side-encryption-context=eyJhd3M6Y2xvdWR0cmFpbDphcm4iOiJhcm46YXdzOmNsb3VkdHJhaWw6dXMtZWFzdC0xOjg1MTcyNTQ5MTIwOTp0cmFpbC9FTEstTW9uaXRvcmluZyJ9, x-amz-server-side-encryption-aws-kms-key-id=arn:aws:kms:us-east-1:851725491209:key/249b21dd-9fba-4ad3-b8ae-39e8de7d2dd1, Host=elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com, x-amz-server-side-encryption=aws:kms, key=AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1110Z_Jrpezilqk7Zi3Rjq.json.gz}"
+    ],
+    "event.id": [
+      "8a1cf688-95b0-31f1-9ff3-8b758cf631a8"
+    ],
+    "user_agent.device.name": [
+      "Other"
+    ],
+    "aws.cloudtrail.vpc_endpoint_id": [
+      "cloudtrail.amazonaws.com"
+    ],
+    "aws.s3.object.key": [
+      "AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1115Z_ENV1ZidNx7xXycJG.json.gz"
+    ],
+    "event.dataset": [
+      "aws.cloudtrail"
+    ]
+  },
+  "ignored_field_values": {
+    "event.original": [
+      "{\"eventVersion\":\"1.11\",\"userIdentity\":{\"type\":\"AWSService\",\"invokedBy\":\"cloudtrail.amazonaws.com\"},\"eventTime\":\"2025-07-18T11:11:18Z\",\"eventSource\":\"s3.amazonaws.com\",\"eventName\":\"PutObject\",\"awsRegion\":\"us-east-1\",\"sourceIPAddress\":\"cloudtrail.amazonaws.com\",\"userAgent\":\"cloudtrail.amazonaws.com\",\"requestParameters\":{\"bucketName\":\"elk-aws-cloudtrail-logs\",\"x-amz-acl\":\"bucket-owner-full-control\",\"x-amz-server-side-encryption-context\":\"eyJhd3M6Y2xvdWR0cmFpbDphcm4iOiJhcm46YXdzOmNsb3VkdHJhaWw6dXMtZWFzdC0xOjg1MTcyNTQ5MTIwOTp0cmFpbC9FTEstTW9uaXRvcmluZyJ9\",\"x-amz-server-side-encryption-aws-kms-key-id\":\"arn:aws:kms:us-east-1:851725491209:key/249b21dd-9fba-4ad3-b8ae-39e8de7d2dd1\",\"Host\":\"elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com\",\"x-amz-server-side-encryption\":\"aws:kms\",\"key\":\"AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1110Z_Jrpezilqk7Zi3Rjq.json.gz\"},\"responseElements\":{\"x-amz-server-side-encryption-aws-kms-key-id\":\"arn:aws:kms:us-east-1:851725491209:key/249b21dd-9fba-4ad3-b8ae-39e8de7d2dd1\",\"x-amz-server-side-encryption\":\"aws:kms\",\"x-amz-server-side-encryption-context\":\"eyJhd3M6Y2xvdWR0cmFpbDphcm4iOiJhcm46YXdzOmNsb3VkdHJhaWw6dXMtZWFzdC0xOjg1MTcyNTQ5MTIwOTp0cmFpbC9FTEstTW9uaXRvcmluZyIsImF3czpzMzphcm4iOiJhcm46YXdzOnMzOjo6ZWxrLWF3cy1jbG91ZHRyYWlsLWxvZ3MvQVdTTG9ncy84NTE3MjU0OTEyMDkvQ2xvdWRUcmFpbC91cy1lYXN0LTEvMjAyNS8wNy8xOC84NTE3MjU0OTEyMDlfQ2xvdWRUcmFpbF91cy1lYXN0LTFfMjAyNTA3MThUMTExMFpfSnJwZXppbHFrN1ppM1JqcS5qc29uLmd6In0=\"},\"additionalEventData\":{\"SignatureVersion\":\"SigV4\",\"CipherSuite\":\"TLS_AES_128_GCM_SHA256\",\"bytesTransferredIn\":2108,\"SSEApplied\":\"SSE_KMS\",\"AuthenticationMethod\":\"AuthHeader\",\"x-amz-id-2\":\"Gp38nUz0nvOXDHdnAW7Pvr3eaJGwnTVbHNtgt7fhjnFmQQh8jM7m55cYeXd2J19508HzJGX1gVY=\",\"bytesTransferredOut\":0},\"requestID\":\"1AKXPES9NJFZA7WA\",\"eventID\":\"8a1cf688-95b0-31f1-9ff3-8b758cf631a8\",\"readOnly\":false,\"resources\":[{\"accountId\":\"851725491209\",\"type\":\"AWS::S3::Bucket\",\"ARN\":\"arn:aws:s3:::elk-aws-cloudtrail-logs\"},{\"type\":\"AWS::S3::Object\",\"ARN\":\"arn:aws:s3:::elk-aws-cloudtrail-logs/AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1110Z_Jrpezilqk7Zi3Rjq.json.gz\"}],\"eventType\":\"AwsApiCall\",\"managementEvent\":false,\"recipientAccountId\":\"851725491209\",\"sharedEventID\":\"eefa2716-dc2e-44a7-94e8-a7a38c5c276f\",\"vpcEndpointId\":\"cloudtrail.amazonaws.com\",\"vpcEndpointAccountId\":\"cloudtrail.amazonaws.com\",\"eventCategory\":\"Data\"}"
+    ]
+  }
+}

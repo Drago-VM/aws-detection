@@ -1,0 +1,27 @@
+name: s3_put_encrypted_object_anomaly
+description: >
+  Detects S3 PutObject calls with anomalous encryption configuration.
+  Distinguishes between legitimate AWS service writes (e.g. CloudTrail
+  writing its own logs) and suspicious uploads using foreign KMS keys,
+  ransomware file extensions, or unexpected encryption contexts.
+  Decodes base64 KMS encryption context for forensic analysis.
+  Built from real ELK/Filebeat CloudTrail log format.
+severity: HIGH
+mitre_technique: T1486
+mitre_tactic: Impact
+aws_source: CloudTrail (S3 Data Events, via Filebeat → ELK)
+log_format: Elasticsearch document — AWSService caller, no source.ip/geo fields
+detection_logic:
+  trusted_safe: AWSService caller + known service + AWSLogs/ path + own-account KMS
+  alert_foreign_kms: KMS key account != recipientAccountId
+  alert_ransomware_ext: .enc / .locked / .crypto / .crypt / .ransom
+  alert_foreign_context: KMS context ARN references unknown account
+  alert_human_kms: IAMUser directly uploading with KMS (unusual)
+author: VM
+tags:
+  - s3
+  - encryption
+  - ransomware
+  - kms
+  - elk
+  - filebeat

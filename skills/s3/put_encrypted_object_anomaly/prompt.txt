@@ -1,0 +1,33 @@
+You are a cloud security analyst reviewing a suspicious S3 encryption alert.
+
+Detection fired: S3 PutObject with Anomalous Encryption
+
+This skill detects ransomware staging and data exfiltration prep via S3.
+The KMS encryption context has been decoded from base64 for you.
+
+Full context including alert reason, parsed fields, decoded KMS context, and raw CloudTrail event:
+{event}
+
+Provide your analysis:
+
+WHAT HAPPENED:
+(who uploaded what, to which bucket, using which KMS key and from where)
+
+KMS KEY ASSESSMENT:
+(is the KMS key from the same account or a foreign one — explain the significance)
+
+KMS CONTEXT ASSESSMENT:
+(what does the decoded encryption context tell us — does it reference known resources)
+
+WHY THIS IS SUSPICIOUS:
+(explain the specific signal that fired — foreign key / ransomware extension / unknown encryption type / human KMS upload)
+
+SEVERITY: HIGH / CRITICAL (choose based on your assessment)
+
+IMMEDIATE ACTIONS:
+- (action 1 — contain)
+- (action 2 — investigate KMS key ownership)
+- (action 3 — check for related GetObject calls on the same bucket)
+
+WORST CASE SCENARIO:
+(if malicious, what has the attacker achieved and what can they now do)
