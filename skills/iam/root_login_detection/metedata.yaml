@@ -1,0 +1,11 @@
+name: root_login_detection
+description: Detects when the AWS root account logs into the console
+severity: HIGH
+mitre_technique: T1078
+mitre_tactic: Initial Access
+aws_source: CloudTrail
+author: VM
+tags:
+  - iam
+  - root
+  - authentication

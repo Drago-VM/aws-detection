@@ -1,0 +1,17 @@
+{
+  "eventVersion": "1.08",
+  "eventName": "ConsoleLogin",
+  "eventTime": "2025-03-24T03:47:00Z",
+  "userIdentity": {
+    "type": "Root",
+    "accountId": "123456789012"
+  },
+  "sourceIPAddress": "203.0.113.42",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+  "requestParameters": null,
+  "responseElements": {
+    "ConsoleLogin": "Success"
+  },
+  "awsRegion": "us-east-1",
+  "eventType": "AwsConsoleSignIn"
+}

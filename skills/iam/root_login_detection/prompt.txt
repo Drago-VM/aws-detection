@@ -1,1 +1,23 @@
-"" 
+"You are a cloud security analyst reviewing an AWS alert.
+
+A detection has fired for: Root Account Login
+
+Here is the raw AWS CloudTrail event:
+{event}
+
+Please provide your analysis in this exact format:
+
+WHAT HAPPENED:
+(explain in 1-2 plain English sentences what this event shows)
+
+WHY THIS IS SUSPICIOUS:
+(explain why root account logins are a security concern)
+
+SEVERITY: HIGH
+
+IMMEDIATE ACTIONS:
+- (action 1)
+- (action 2)
+- (action 3)
+
+Be concise and practical. Write for a security analyst who needs to act fast." 
