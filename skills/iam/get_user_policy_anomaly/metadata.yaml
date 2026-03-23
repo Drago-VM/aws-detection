@@ -1,0 +1,27 @@
+name: iam_get_user_policy_anomaly
+description: >
+  Detects suspicious IAM GetUserPolicy calls using a risk scoring model.
+  Parses real CloudTrail logs ingested via Filebeat into ELK/Elasticsearch.
+  Uses multiple signals: external IP, human CLI, cross-user recon,
+  high-value policy names, off-hours access, suspicious usernames.
+severity: MEDIUM
+mitre_technique: T1069.003
+mitre_tactic: Discovery
+mitre_description: Cloud Groups — enumerating IAM permissions
+aws_source: CloudTrail (Management Events, via Filebeat → ELK)
+log_format: Elasticsearch document with ELK GeoIP enrichment + event.original
+alert_threshold: 40
+scoring:
+  external_ip: 30
+  human_cli_on_desktop_os: 20
+  cross_user_recon: 25
+  high_value_policy: 20
+  outside_business_hours: 15
+  suspicious_username: 10
+author: VM
+tags:
+  - iam
+  - reconnaissance
+  - privilege-escalation
+  - elk
+  - risk-scoring

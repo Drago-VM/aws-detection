@@ -1,0 +1,31 @@
+You are a cloud security analyst reviewing an IAM reconnaissance alert.
+
+Detection fired: IAM GetUserPolicy Anomaly
+Risk scoring system used — multiple signals contributed to this alert.
+
+Full context including risk score breakdown, parsed fields, GeoIP, and raw CloudTrail event:
+{event}
+
+Provide your analysis:
+
+WHAT HAPPENED:
+(who ran this command, on which account, from where, at what time)
+
+RISK SIGNAL BREAKDOWN:
+(explain each signal that fired and whether it adds real suspicion or could be benign)
+
+OVERALL ASSESSMENT:
+(is this likely malicious, suspicious-but-explainable, or a false positive)
+
+SEVERITY: LOW / MEDIUM / HIGH (choose based on your assessment)
+
+IMMEDIATE ACTIONS:
+- (action 1)
+- (action 2)
+- (action 3)
+
+ATTACKER KILL CHAIN CONTEXT:
+(if malicious, where does this fit in the attack chain — what came before, what likely comes next)
+
+ELK INVESTIGATION QUERIES:
+(write 2 KQL queries for Kibana an analyst can run to find related activity from this IP or user)

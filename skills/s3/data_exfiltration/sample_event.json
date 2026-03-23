@@ -1,0 +1,403 @@
+{
+  "_index": "aws-sqs-01",
+  "_id": "31a0587b6a-000000000001",
+  "_version": 1,
+  "_score": 0,
+  "_source": {
+    "agent": {
+      "name": "ip-172-31-27-85",
+      "id": "5137bd51-76ff-4cbf-96c4-5c16e8e79f07",
+      "ephemeral_id": "b1c60f24-5018-4469-9852-eba44f96f267",
+      "type": "filebeat",
+      "version": "8.6.2"
+    },
+    "log": {
+      "file": {
+        "path": "https://elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com/AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1120Z_EFULcDptxs6W0NUe.json.gz"
+      },
+      "offset": 1
+    },
+    "source": {
+      "geo": {
+        "continent_name": "North America",
+        "region_iso_code": "US-VA",
+        "city_name": "Ashburn",
+        "country_iso_code": "US",
+        "country_name": "United States",
+        "location": {
+          "lon": -77.4903,
+          "lat": 39.0469
+        },
+        "region_name": "Virginia"
+      },
+      "as": {
+        "number": 14618,
+        "organization": {
+          "name": "AMAZON-AES"
+        }
+      },
+      "address": "54.242.89.206",
+      "ip": "54.242.89.206"
+    },
+    "fileset": {
+      "name": "cloudtrail"
+    },
+    "tags": [
+      "forwarded"
+    ],
+    "cloud": {
+      "provider": "",
+      "region": "us-east-1",
+      "account": {
+        "id": "851725491209"
+      }
+    },
+    "input": {
+      "type": "aws-s3"
+    },
+    "@timestamp": "2025-07-18T11:16:14.000Z",
+    "ecs": {
+      "version": "1.12.0"
+    },
+    "related": {
+      "user": [
+        "ELK"
+      ]
+    },
+    "service": {
+      "type": "aws"
+    },
+    "aws": {
+      "s3": {
+        "bucket": {
+          "name": "elk-aws-cloudtrail-logs",
+          "arn": "arn:aws:s3:::elk-aws-cloudtrail-logs"
+        },
+        "object": {
+          "key": "AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1120Z_EFULcDptxs6W0NUe.json.gz"
+        }
+      },
+      "cloudtrail": {
+        "event_version": "1.11",
+        "flattened": {
+          "additional_eventdata": {
+            "SignatureVersion": "SigV4",
+            "CipherSuite": "TLS_AES_128_GCM_SHA256",
+            "bytesTransferredIn": 0,
+            "AuthenticationMethod": "AuthHeader",
+            "x-amz-id-2": "mrxzpnFbiQhy7+Hvu4a443Uv2ZQp8uOQQ89u4i/MAyviiYig8L083TY7nFT5vMTq+Kq502mQnxbh55QCo/cGApQFIOxwqqGU2qh8MtKHOIE=",
+            "bytesTransferredOut": 902
+          },
+          "request_parameters": {
+            "bucketName": "elk-aws-cloudtrail-logs",
+            "x-id": "GetObject",
+            "Host": "elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com",
+            "key": "AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1115Z_NVh8b5qJM7K2ibyY.json.gz"
+          }
+        },
+        "event_type": "AwsApiCall",
+        "additional_eventdata": "{SignatureVersion=SigV4, CipherSuite=TLS_AES_128_GCM_SHA256, bytesTransferredIn=0, AuthenticationMethod=AuthHeader, x-amz-id-2=mrxzpnFbiQhy7+Hvu4a443Uv2ZQp8uOQQ89u4i/MAyviiYig8L083TY7nFT5vMTq+Kq502mQnxbh55QCo/cGApQFIOxwqqGU2qh8MtKHOIE=, bytesTransferredOut=902}",
+        "read_only": true,
+        "user_identity": {
+          "access_key_id": "AKIA4MTWLTQE42ROYBUM",
+          "type": "IAMUser",
+          "arn": "arn:aws:iam::851725491209:user/ELK"
+        },
+        "recipient_account_id": "851725491209",
+        "event_category": "Data",
+        "request_parameters": "{bucketName=elk-aws-cloudtrail-logs, x-id=GetObject, Host=elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com, key=AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1115Z_NVh8b5qJM7K2ibyY.json.gz}",
+        "request_id": "ESVTN29AXJK3J74N",
+        "management_event": false
+      }
+    },
+    "event": {
+      "ingested": "2025-07-18T11:21:13.247731014Z",
+      "original": "{\"eventVersion\":\"1.11\",\"userIdentity\":{\"type\":\"IAMUser\",\"principalId\":\"AIDA4MTWLTQETNP6VZTAA\",\"arn\":\"arn:aws:iam::851725491209:user/ELK\",\"accountId\":\"851725491209\",\"accessKeyId\":\"AKIA4MTWLTQE42ROYBUM\",\"userName\":\"ELK\"},\"eventTime\":\"2025-07-18T11:16:14Z\",\"eventSource\":\"s3.amazonaws.com\",\"eventName\":\"GetObject\",\"awsRegion\":\"us-east-1\",\"sourceIPAddress\":\"54.242.89.206\",\"userAgent\":\"[aws-sdk-go-v2/1.16.6 os/linux lang/go/1.18.10 md/GOOS/linux md/GOARCH/amd64 api/s3/1.26.12]\",\"requestParameters\":{\"bucketName\":\"elk-aws-cloudtrail-logs\",\"Host\":\"elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com\",\"key\":\"AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1115Z_NVh8b5qJM7K2ibyY.json.gz\",\"x-id\":\"GetObject\"},\"responseElements\":null,\"additionalEventData\":{\"SignatureVersion\":\"SigV4\",\"CipherSuite\":\"TLS_AES_128_GCM_SHA256\",\"bytesTransferredIn\":0,\"AuthenticationMethod\":\"AuthHeader\",\"x-amz-id-2\":\"mrxzpnFbiQhy7+Hvu4a443Uv2ZQp8uOQQ89u4i/MAyviiYig8L083TY7nFT5vMTq+Kq502mQnxbh55QCo/cGApQFIOxwqqGU2qh8MtKHOIE=\",\"bytesTransferredOut\":902},\"requestID\":\"ESVTN29AXJK3J74N\",\"eventID\":\"b0e358de-55b6-4639-887c-76e78bd95d03\",\"readOnly\":true,\"resources\":[{\"accountId\":\"851725491209\",\"type\":\"AWS::S3::Bucket\",\"ARN\":\"arn:aws:s3:::elk-aws-cloudtrail-logs\"},{\"type\":\"AWS::S3::Object\",\"ARN\":\"arn:aws:s3:::elk-aws-cloudtrail-logs/AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1115Z_NVh8b5qJM7K2ibyY.json.gz\"}],\"eventType\":\"AwsApiCall\",\"managementEvent\":false,\"recipientAccountId\":\"851725491209\",\"eventCategory\":\"Data\",\"tlsDetails\":{\"tlsVersion\":\"TLSv1.3\",\"cipherSuite\":\"TLS_AES_128_GCM_SHA256\",\"clientProvidedHostHeader\":\"elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com\"}}",
+      "provider": "s3.amazonaws.com",
+      "created": "2025-07-18T11:21:12.245Z",
+      "kind": "event",
+      "module": "aws",
+      "action": "GetObject",
+      "id": "b0e358de-55b6-4639-887c-76e78bd95d03",
+      "type": "info",
+      "dataset": "aws.cloudtrail",
+      "outcome": "success"
+    },
+    "user": {
+      "name": "ELK",
+      "id": "AIDA4MTWLTQETNP6VZTAA"
+    },
+    "user_agent": {
+      "original": "[aws-sdk-go-v2/1.16.6 os/linux lang/go/1.18.10 md/GOOS/linux md/GOARCH/amd64 api/s3/1.26.12]",
+      "os": {
+        "name": "Linux"
+      },
+      "name": "Other",
+      "device": {
+        "name": "Other"
+      }
+    }
+  },
+  "fields": {
+    "aws.cloudtrail.request_parameters.text": [
+      "{bucketName=elk-aws-cloudtrail-logs, x-id=GetObject, Host=elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com, key=AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1115Z_NVh8b5qJM7K2ibyY.json.gz}"
+    ],
+    "traefik.access.geoip.region_iso_code": [
+      "US-VA"
+    ],
+    "aws.cloudtrail.flattened.additional_eventdata": [
+      {
+        "SignatureVersion": "SigV4",
+        "CipherSuite": "TLS_AES_128_GCM_SHA256",
+        "bytesTransferredIn": 0,
+        "AuthenticationMethod": "AuthHeader",
+        "x-amz-id-2": "mrxzpnFbiQhy7+Hvu4a443Uv2ZQp8uOQQ89u4i/MAyviiYig8L083TY7nFT5vMTq+Kq502mQnxbh55QCo/cGApQFIOxwqqGU2qh8MtKHOIE=",
+        "bytesTransferredOut": 902
+      }
+    ],
+    "user_agent.original.text": [
+      "[aws-sdk-go-v2/1.16.6 os/linux lang/go/1.18.10 md/GOOS/linux md/GOARCH/amd64 api/s3/1.26.12]"
+    ],
+    "traefik.access.geoip.location": [
+      {
+        "coordinates": [
+          -77.4903,
+          39.0469
+        ],
+        "type": "Point"
+      }
+    ],
+    "traefik.access.geoip.city_name": [
+      "Ashburn"
+    ],
+    "traefik.access.user_agent.name": [
+      "Other"
+    ],
+    "service.type": [
+      "aws"
+    ],
+    "aws.cloudtrail.additional_eventdata": [
+      "{SignatureVersion=SigV4, CipherSuite=TLS_AES_128_GCM_SHA256, bytesTransferredIn=0, AuthenticationMethod=AuthHeader, x-amz-id-2=mrxzpnFbiQhy7+Hvu4a443Uv2ZQp8uOQQ89u4i/MAyviiYig8L083TY7nFT5vMTq+Kq502mQnxbh55QCo/cGApQFIOxwqqGU2qh8MtKHOIE=, bytesTransferredOut=902}"
+    ],
+    "source.geo.region_name": [
+      "Virginia"
+    ],
+    "traefik.access.user_agent.original": [
+      "[aws-sdk-go-v2/1.16.6 os/linux lang/go/1.18.10 md/GOOS/linux md/GOARCH/amd64 api/s3/1.26.12]"
+    ],
+    "source.ip": [
+      "54.242.89.206"
+    ],
+    "agent.name": [
+      "ip-172-31-27-85"
+    ],
+    "source.geo.region_iso_code": [
+      "US-VA"
+    ],
+    "aws.cloudtrail.management_event": [
+      "false"
+    ],
+    "event.kind": [
+      "event"
+    ],
+    "aws.cloudtrail.user_identity.arn": [
+      "arn:aws:iam::851725491209:user/ELK"
+    ],
+    "event.outcome": [
+      "success"
+    ],
+    "source.geo.city_name": [
+      "Ashburn"
+    ],
+    "user_agent.original": [
+      "[aws-sdk-go-v2/1.16.6 os/linux lang/go/1.18.10 md/GOOS/linux md/GOARCH/amd64 api/s3/1.26.12]"
+    ],
+    "cloud.region": [
+      "us-east-1"
+    ],
+    "user.id": [
+      "AIDA4MTWLTQETNP6VZTAA"
+    ],
+    "fileset.name": [
+      "cloudtrail"
+    ],
+    "traefik.access.geoip.country_iso_code": [
+      "US"
+    ],
+    "input.type": [
+      "aws-s3"
+    ],
+    "log.offset": [
+      1
+    ],
+    "user_agent.name": [
+      "Other"
+    ],
+    "agent.hostname": [
+      "ip-172-31-27-85"
+    ],
+    "related.user": [
+      "ELK"
+    ],
+    "tags": [
+      "forwarded"
+    ],
+    "cloud.provider": [
+      ""
+    ],
+    "event.provider": [
+      "s3.amazonaws.com"
+    ],
+    "agent.id": [
+      "5137bd51-76ff-4cbf-96c4-5c16e8e79f07"
+    ],
+    "ecs.version": [
+      "1.12.0"
+    ],
+    "event.created": [
+      "2025-07-18T11:21:12.245Z"
+    ],
+    "aws.cloudtrail.event_version": [
+      "1.11"
+    ],
+    "agent.version": [
+      "8.6.2"
+    ],
+    "source.as.number": [
+      14618
+    ],
+    "aws.cloudtrail.read_only": [
+      "true"
+    ],
+    "aws.cloudtrail.event_category": [
+      "Data"
+    ],
+    "aws.cloudtrail.user_identity.type": [
+      "IAMUser"
+    ],
+    "aws.s3.bucket.arn": [
+      "arn:aws:s3:::elk-aws-cloudtrail-logs"
+    ],
+    "aws.cloudtrail.recipient_account_id": [
+      "851725491209"
+    ],
+    "traefik.access.geoip.region_name": [
+      "Virginia"
+    ],
+    "aws.cloudtrail.request_id": [
+      "ESVTN29AXJK3J74N"
+    ],
+    "user.name": [
+      "ELK"
+    ],
+    "source.geo.location": [
+      {
+        "coordinates": [
+          -77.4903,
+          39.0469
+        ],
+        "type": "Point"
+      }
+    ],
+    "source.address": [
+      "54.242.89.206"
+    ],
+    "user_agent.os.name.text": [
+      "Linux"
+    ],
+    "aws.cloudtrail.flattened.request_parameters": [
+      {
+        "bucketName": "elk-aws-cloudtrail-logs",
+        "x-id": "GetObject",
+        "Host": "elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com",
+        "key": "AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1115Z_NVh8b5qJM7K2ibyY.json.gz"
+      }
+    ],
+    "user_agent.os.name": [
+      "Linux"
+    ],
+    "agent.type": [
+      "filebeat"
+    ],
+    "event.module": [
+      "aws"
+    ],
+    "source.geo.country_iso_code": [
+      "US"
+    ],
+    "aws.cloudtrail.event_type": [
+      "AwsApiCall"
+    ],
+    "aws.s3.bucket.name": [
+      "elk-aws-cloudtrail-logs"
+    ],
+    "source.as.organization.name.text": [
+      "AMAZON-AES"
+    ],
+    "source.as.organization.name": [
+      "AMAZON-AES"
+    ],
+    "source.geo.continent_name": [
+      "North America"
+    ],
+    "traefik.access.geoip.continent_name": [
+      "North America"
+    ],
+    "aws.cloudtrail.additional_eventdata.text": [
+      "{SignatureVersion=SigV4, CipherSuite=TLS_AES_128_GCM_SHA256, bytesTransferredIn=0, AuthenticationMethod=AuthHeader, x-amz-id-2=mrxzpnFbiQhy7+Hvu4a443Uv2ZQp8uOQQ89u4i/MAyviiYig8L083TY7nFT5vMTq+Kq502mQnxbh55QCo/cGApQFIOxwqqGU2qh8MtKHOIE=, bytesTransferredOut=902}"
+    ],
+    "traefik.access.user_agent.os_name": [
+      "Linux"
+    ],
+    "event.action": [
+      "GetObject"
+    ],
+    "event.ingested": [
+      "2025-07-18T11:21:13.247Z"
+    ],
+    "@timestamp": [
+      "2025-07-18T11:16:14.000Z"
+    ],
+    "cloud.account.id": [
+      "851725491209"
+    ],
+    "aws.cloudtrail.user_identity.access_key_id": [
+      "AKIA4MTWLTQE42ROYBUM"
+    ],
+    "event.type": [
+      "info"
+    ],
+    "log.file.path": [
+      "https://elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com/AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1120Z_EFULcDptxs6W0NUe.json.gz"
+    ],
+    "agent.ephemeral_id": [
+      "b1c60f24-5018-4469-9852-eba44f96f267"
+    ],
+    "aws.cloudtrail.request_parameters": [
+      "{bucketName=elk-aws-cloudtrail-logs, x-id=GetObject, Host=elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com, key=AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1115Z_NVh8b5qJM7K2ibyY.json.gz}"
+    ],
+    "event.id": [
+      "b0e358de-55b6-4639-887c-76e78bd95d03"
+    ],
+    "source.geo.country_name": [
+      "United States"
+    ],
+    "user_agent.device.name": [
+      "Other"
+    ],
+    "aws.s3.object.key": [
+      "AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1120Z_EFULcDptxs6W0NUe.json.gz"
+    ],
+    "event.dataset": [
+      "aws.cloudtrail"
+    ],
+    "user.name.text": [
+      "ELK"
+    ]
+  },
+  "ignored_field_values": {
+    "event.original": [
+      "{\"eventVersion\":\"1.11\",\"userIdentity\":{\"type\":\"IAMUser\",\"principalId\":\"AIDA4MTWLTQETNP6VZTAA\",\"arn\":\"arn:aws:iam::851725491209:user/ELK\",\"accountId\":\"851725491209\",\"accessKeyId\":\"AKIA4MTWLTQE42ROYBUM\",\"userName\":\"ELK\"},\"eventTime\":\"2025-07-18T11:16:14Z\",\"eventSource\":\"s3.amazonaws.com\",\"eventName\":\"GetObject\",\"awsRegion\":\"us-east-1\",\"sourceIPAddress\":\"54.242.89.206\",\"userAgent\":\"[aws-sdk-go-v2/1.16.6 os/linux lang/go/1.18.10 md/GOOS/linux md/GOARCH/amd64 api/s3/1.26.12]\",\"requestParameters\":{\"bucketName\":\"elk-aws-cloudtrail-logs\",\"Host\":\"elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com\",\"key\":\"AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1115Z_NVh8b5qJM7K2ibyY.json.gz\",\"x-id\":\"GetObject\"},\"responseElements\":null,\"additionalEventData\":{\"SignatureVersion\":\"SigV4\",\"CipherSuite\":\"TLS_AES_128_GCM_SHA256\",\"bytesTransferredIn\":0,\"AuthenticationMethod\":\"AuthHeader\",\"x-amz-id-2\":\"mrxzpnFbiQhy7+Hvu4a443Uv2ZQp8uOQQ89u4i/MAyviiYig8L083TY7nFT5vMTq+Kq502mQnxbh55QCo/cGApQFIOxwqqGU2qh8MtKHOIE=\",\"bytesTransferredOut\":902},\"requestID\":\"ESVTN29AXJK3J74N\",\"eventID\":\"b0e358de-55b6-4639-887c-76e78bd95d03\",\"readOnly\":true,\"resources\":[{\"accountId\":\"851725491209\",\"type\":\"AWS::S3::Bucket\",\"ARN\":\"arn:aws:s3:::elk-aws-cloudtrail-logs\"},{\"type\":\"AWS::S3::Object\",\"ARN\":\"arn:aws:s3:::elk-aws-cloudtrail-logs/AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1115Z_NVh8b5qJM7K2ibyY.json.gz\"}],\"eventType\":\"AwsApiCall\",\"managementEvent\":false,\"recipientAccountId\":\"851725491209\",\"eventCategory\":\"Data\",\"tlsDetails\":{\"tlsVersion\":\"TLSv1.3\",\"cipherSuite\":\"TLS_AES_128_GCM_SHA256\",\"clientProvidedHostHeader\":\"elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com\"}}"
+    ]
+  }
+}

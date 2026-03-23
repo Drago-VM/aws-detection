@@ -1,0 +1,17 @@
+name: s3_data_exfiltration
+description: >
+  Detects large or suspicious S3 GetObject calls from external IPs.
+  Parses real CloudTrail logs ingested via Filebeat into Elasticsearch/ELK.
+  Handles both ELK-wrapped (_source) and raw CloudTrail JSON formats.
+severity: CRITICAL
+mitre_technique: T1530
+mitre_tactic: Collection
+aws_source: CloudTrail (via Filebeat → ELK)
+log_format: Elasticsearch document with event.original raw CloudTrail string
+author: VM
+tags:
+  - s3
+  - exfiltration
+  - data-theft
+  - elk
+  - filebeat

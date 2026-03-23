@@ -1,0 +1,395 @@
+{
+  "_index": "aws-sqs-01",
+  "_id": "2c75557e9c-000000002669",
+  "_version": 1,
+  "_score": 0,
+  "_source": {
+    "agent": {
+      "name": "ip-172-31-27-85",
+      "id": "5137bd51-76ff-4cbf-96c4-5c16e8e79f07",
+      "type": "filebeat",
+      "ephemeral_id": "b1c60f24-5018-4469-9852-eba44f96f267",
+      "version": "8.6.2"
+    },
+    "log": {
+      "file": {
+        "path": "https://elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com/AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1105Z_xSUGWAikwQhcoBt3.json.gz"
+      },
+      "offset": 2669
+    },
+    "source": {
+      "geo": {
+        "continent_name": "Asia",
+        "region_iso_code": "IN-KA",
+        "city_name": "Bengaluru",
+        "country_iso_code": "IN",
+        "country_name": "India",
+        "location": {
+          "lon": 77.591,
+          "lat": 12.9753
+        },
+        "region_name": "Karnataka"
+      },
+      "as": {
+        "number": 132559,
+        "organization": {
+          "name": "Gatik Business Solutions"
+        }
+      },
+      "address": "36.255.87.4",
+      "ip": "36.255.87.4"
+    },
+    "fileset": {
+      "name": "cloudtrail"
+    },
+    "tags": [
+      "forwarded"
+    ],
+    "cloud": {
+      "provider": "",
+      "region": "us-east-1",
+      "account": {
+        "id": "851725491209"
+      }
+    },
+    "input": {
+      "type": "aws-s3"
+    },
+    "@timestamp": "2025-07-18T10:58:20.000Z",
+    "ecs": {
+      "version": "1.12.0"
+    },
+    "related": {
+      "user": [
+        "queue-inspector"
+      ]
+    },
+    "service": {
+      "type": "aws"
+    },
+    "aws": {
+      "s3": {
+        "bucket": {
+          "name": "elk-aws-cloudtrail-logs",
+          "arn": "arn:aws:s3:::elk-aws-cloudtrail-logs"
+        },
+        "object": {
+          "key": "AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1105Z_xSUGWAikwQhcoBt3.json.gz"
+        }
+      },
+      "cloudtrail": {
+        "event_version": "1.11",
+        "flattened": {
+          "request_parameters": {
+            "policyName": "queue-inspector-role",
+            "userName": "queue-inspector"
+          }
+        },
+        "event_type": "AwsApiCall",
+        "read_only": true,
+        "user_identity": {
+          "access_key_id": "AKIA4MTWLTQEWP4J5ZT2",
+          "type": "IAMUser",
+          "arn": "arn:aws:iam::851725491209:user/queue-inspector"
+        },
+        "recipient_account_id": "851725491209",
+        "event_category": "Management",
+        "request_parameters": "{policyName=queue-inspector-role, userName=queue-inspector}",
+        "request_id": "e1b37130-5fde-453c-8dc0-0bf4fbc718ed",
+        "management_event": true
+      }
+    },
+    "event": {
+      "ingested": "2025-07-18T11:02:30.264169730Z",
+      "original": "{\"eventVersion\":\"1.11\",\"userIdentity\":{\"type\":\"IAMUser\",\"principalId\":\"AIDA4MTWLTQEYXOMQQTMW\",\"arn\":\"arn:aws:iam::851725491209:user/queue-inspector\",\"accountId\":\"851725491209\",\"accessKeyId\":\"AKIA4MTWLTQEWP4J5ZT2\",\"userName\":\"queue-inspector\"},\"eventTime\":\"2025-07-18T10:58:20Z\",\"eventSource\":\"iam.amazonaws.com\",\"eventName\":\"GetUserPolicy\",\"awsRegion\":\"us-east-1\",\"sourceIPAddress\":\"36.255.87.4\",\"userAgent\":\"aws-cli/2.15.28 Python/3.11.8 Windows/10 exe/AMD64 prompt/off command/iam.get-user-policy\",\"requestParameters\":{\"userName\":\"queue-inspector\",\"policyName\":\"queue-inspector-role\"},\"responseElements\":null,\"requestID\":\"e1b37130-5fde-453c-8dc0-0bf4fbc718ed\",\"eventID\":\"ef52714f-367c-4301-9dcc-4d2f9046270c\",\"readOnly\":true,\"eventType\":\"AwsApiCall\",\"managementEvent\":true,\"recipientAccountId\":\"851725491209\",\"eventCategory\":\"Management\",\"tlsDetails\":{\"tlsVersion\":\"TLSv1.3\",\"cipherSuite\":\"TLS_AES_128_GCM_SHA256\",\"clientProvidedHostHeader\":\"iam.amazonaws.com\"}}",
+      "provider": "iam.amazonaws.com",
+      "created": "2025-07-18T11:02:29.246Z",
+      "kind": "event",
+      "module": "aws",
+      "action": "GetUserPolicy",
+      "id": "ef52714f-367c-4301-9dcc-4d2f9046270c",
+      "type": [
+        "user",
+        "info"
+      ],
+      "category": [
+        "iam"
+      ],
+      "dataset": "aws.cloudtrail",
+      "outcome": "success"
+    },
+    "user": {
+      "name": "queue-inspector",
+      "id": "AIDA4MTWLTQEYXOMQQTMW",
+      "target": {
+        "name": "queue-inspector"
+      }
+    },
+    "user_agent": {
+      "original": "aws-cli/2.15.28 Python/3.11.8 Windows/10 exe/AMD64 prompt/off command/iam.get-user-policy",
+      "os": {
+        "name": "Windows"
+      },
+      "name": "aws-cli",
+      "device": {
+        "name": "Other"
+      },
+      "version": "2.15.28"
+    }
+  },
+  "fields": {
+    "aws.cloudtrail.request_parameters.text": [
+      "{policyName=queue-inspector-role, userName=queue-inspector}"
+    ],
+    "traefik.access.geoip.region_iso_code": [
+      "IN-KA"
+    ],
+    "event.category": [
+      "iam"
+    ],
+    "user_agent.original.text": [
+      "aws-cli/2.15.28 Python/3.11.8 Windows/10 exe/AMD64 prompt/off command/iam.get-user-policy"
+    ],
+    "traefik.access.geoip.location": [
+      {
+        "coordinates": [
+          77.591,
+          12.9753
+        ],
+        "type": "Point"
+      }
+    ],
+    "traefik.access.geoip.city_name": [
+      "Bengaluru"
+    ],
+    "traefik.access.user_agent.name": [
+      "aws-cli"
+    ],
+    "service.type": [
+      "aws"
+    ],
+    "source.geo.region_name": [
+      "Karnataka"
+    ],
+    "traefik.access.user_agent.original": [
+      "aws-cli/2.15.28 Python/3.11.8 Windows/10 exe/AMD64 prompt/off command/iam.get-user-policy"
+    ],
+    "source.ip": [
+      "36.255.87.4"
+    ],
+    "agent.name": [
+      "ip-172-31-27-85"
+    ],
+    "user_agent.version": [
+      "2.15.28"
+    ],
+    "source.geo.region_iso_code": [
+      "IN-KA"
+    ],
+    "user.target.name.text": [
+      "queue-inspector"
+    ],
+    "aws.cloudtrail.management_event": [
+      "true"
+    ],
+    "event.kind": [
+      "event"
+    ],
+    "aws.cloudtrail.user_identity.arn": [
+      "arn:aws:iam::851725491209:user/queue-inspector"
+    ],
+    "event.outcome": [
+      "success"
+    ],
+    "source.geo.city_name": [
+      "Bengaluru"
+    ],
+    "user_agent.original": [
+      "aws-cli/2.15.28 Python/3.11.8 Windows/10 exe/AMD64 prompt/off command/iam.get-user-policy"
+    ],
+    "event.original": [
+      "{\"eventVersion\":\"1.11\",\"userIdentity\":{\"type\":\"IAMUser\",\"principalId\":\"AIDA4MTWLTQEYXOMQQTMW\",\"arn\":\"arn:aws:iam::851725491209:user/queue-inspector\",\"accountId\":\"851725491209\",\"accessKeyId\":\"AKIA4MTWLTQEWP4J5ZT2\",\"userName\":\"queue-inspector\"},\"eventTime\":\"2025-07-18T10:58:20Z\",\"eventSource\":\"iam.amazonaws.com\",\"eventName\":\"GetUserPolicy\",\"awsRegion\":\"us-east-1\",\"sourceIPAddress\":\"36.255.87.4\",\"userAgent\":\"aws-cli/2.15.28 Python/3.11.8 Windows/10 exe/AMD64 prompt/off command/iam.get-user-policy\",\"requestParameters\":{\"userName\":\"queue-inspector\",\"policyName\":\"queue-inspector-role\"},\"responseElements\":null,\"requestID\":\"e1b37130-5fde-453c-8dc0-0bf4fbc718ed\",\"eventID\":\"ef52714f-367c-4301-9dcc-4d2f9046270c\",\"readOnly\":true,\"eventType\":\"AwsApiCall\",\"managementEvent\":true,\"recipientAccountId\":\"851725491209\",\"eventCategory\":\"Management\",\"tlsDetails\":{\"tlsVersion\":\"TLSv1.3\",\"cipherSuite\":\"TLS_AES_128_GCM_SHA256\",\"clientProvidedHostHeader\":\"iam.amazonaws.com\"}}"
+    ],
+    "cloud.region": [
+      "us-east-1"
+    ],
+    "user.id": [
+      "AIDA4MTWLTQEYXOMQQTMW"
+    ],
+    "fileset.name": [
+      "cloudtrail"
+    ],
+    "traefik.access.geoip.country_iso_code": [
+      "IN"
+    ],
+    "input.type": [
+      "aws-s3"
+    ],
+    "log.offset": [
+      2669
+    ],
+    "user_agent.name": [
+      "aws-cli"
+    ],
+    "agent.hostname": [
+      "ip-172-31-27-85"
+    ],
+    "related.user": [
+      "queue-inspector"
+    ],
+    "tags": [
+      "forwarded"
+    ],
+    "user.target.name": [
+      "queue-inspector"
+    ],
+    "cloud.provider": [
+      ""
+    ],
+    "event.provider": [
+      "iam.amazonaws.com"
+    ],
+    "agent.id": [
+      "5137bd51-76ff-4cbf-96c4-5c16e8e79f07"
+    ],
+    "ecs.version": [
+      "1.12.0"
+    ],
+    "event.created": [
+      "2025-07-18T11:02:29.246Z"
+    ],
+    "aws.cloudtrail.event_version": [
+      "1.11"
+    ],
+    "agent.version": [
+      "8.6.2"
+    ],
+    "source.as.number": [
+      132559
+    ],
+    "aws.cloudtrail.read_only": [
+      "true"
+    ],
+    "aws.cloudtrail.event_category": [
+      "Management"
+    ],
+    "aws.cloudtrail.user_identity.type": [
+      "IAMUser"
+    ],
+    "aws.s3.bucket.arn": [
+      "arn:aws:s3:::elk-aws-cloudtrail-logs"
+    ],
+    "aws.cloudtrail.recipient_account_id": [
+      "851725491209"
+    ],
+    "traefik.access.geoip.region_name": [
+      "Karnataka"
+    ],
+    "aws.cloudtrail.request_id": [
+      "e1b37130-5fde-453c-8dc0-0bf4fbc718ed"
+    ],
+    "user.name": [
+      "queue-inspector"
+    ],
+    "source.geo.location": [
+      {
+        "coordinates": [
+          77.591,
+          12.9753
+        ],
+        "type": "Point"
+      }
+    ],
+    "source.address": [
+      "36.255.87.4"
+    ],
+    "user_agent.os.name.text": [
+      "Windows"
+    ],
+    "aws.cloudtrail.flattened.request_parameters": [
+      {
+        "policyName": "queue-inspector-role",
+        "userName": "queue-inspector"
+      }
+    ],
+    "user_agent.os.name": [
+      "Windows"
+    ],
+    "agent.type": [
+      "filebeat"
+    ],
+    "event.module": [
+      "aws"
+    ],
+    "source.geo.country_iso_code": [
+      "IN"
+    ],
+    "aws.cloudtrail.event_type": [
+      "AwsApiCall"
+    ],
+    "aws.s3.bucket.name": [
+      "elk-aws-cloudtrail-logs"
+    ],
+    "source.as.organization.name.text": [
+      "Gatik Business Solutions"
+    ],
+    "source.as.organization.name": [
+      "Gatik Business Solutions"
+    ],
+    "source.geo.continent_name": [
+      "Asia"
+    ],
+    "traefik.access.geoip.continent_name": [
+      "Asia"
+    ],
+    "traefik.access.user_agent.os_name": [
+      "Windows"
+    ],
+    "event.action": [
+      "GetUserPolicy"
+    ],
+    "event.ingested": [
+      "2025-07-18T11:02:30.264Z"
+    ],
+    "@timestamp": [
+      "2025-07-18T10:58:20.000Z"
+    ],
+    "cloud.account.id": [
+      "851725491209"
+    ],
+    "aws.cloudtrail.user_identity.access_key_id": [
+      "AKIA4MTWLTQEWP4J5ZT2"
+    ],
+    "event.type": [
+      "user",
+      "info"
+    ],
+    "log.file.path": [
+      "https://elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com/AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1105Z_xSUGWAikwQhcoBt3.json.gz"
+    ],
+    "agent.ephemeral_id": [
+      "b1c60f24-5018-4469-9852-eba44f96f267"
+    ],
+    "aws.cloudtrail.request_parameters": [
+      "{policyName=queue-inspector-role, userName=queue-inspector}"
+    ],
+    "event.id": [
+      "ef52714f-367c-4301-9dcc-4d2f9046270c"
+    ],
+    "source.geo.country_name": [
+      "India"
+    ],
+    "user_agent.device.name": [
+      "Other"
+    ],
+    "aws.s3.object.key": [
+      "AWSLogs/851725491209/CloudTrail/us-east-1/2025/07/18/851725491209_CloudTrail_us-east-1_20250718T1105Z_xSUGWAikwQhcoBt3.json.gz"
+    ],
+    "event.dataset": [
+      "aws.cloudtrail"
+    ],
+    "user.name.text": [
+      "queue-inspector"
+    ]
+  }
+}
