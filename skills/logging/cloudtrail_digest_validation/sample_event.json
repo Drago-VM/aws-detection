@@ -1,0 +1,193 @@
+{
+  "_index": "aws-sqs-01",
+  "_id": "b1687e96b0-000000000000",
+  "_version": 1,
+  "_score": 0,
+  "_source": {
+    "agent": {
+      "name": "ip-172-31-27-85",
+      "id": "5137bd51-76ff-4cbf-96c4-5c16e8e79f07",
+      "type": "filebeat",
+      "ephemeral_id": "293eedd0-6fb5-4afc-934d-72a6bf7e2d71",
+      "version": "8.6.2"
+    },
+    "log": {
+      "file": {
+        "path": "https://elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com/AWSLogs/851725491209/CloudTrail-Digest/ca-central-1/2025/07/16/851725491209_CloudTrail-Digest_ca-central-1_ELK-Monitoring_us-east-1_20250716T133452Z.json.gz"
+      },
+      "offset": 0
+    },
+    "fileset": {
+      "name": "cloudtrail"
+    },
+    "tags": [
+      "forwarded"
+    ],
+    "cloud": {
+      "provider": "",
+      "region": "us-east-1",
+      "account": {
+        "id": "851725491209"
+      }
+    },
+    "input": {
+      "type": "aws-s3"
+    },
+    "@timestamp": "2025-07-16T13:34:52.000Z",
+    "file": {
+      "path": "AWSLogs/851725491209/CloudTrail-Digest/ca-central-1/2025/07/16/851725491209_CloudTrail-Digest_ca-central-1_ELK-Monitoring_us-east-1_20250716T133452Z.json.gz",
+      "hash": {
+        "sha256": "413a2e2febaf981306fe35bd21d6e665bce9dba34c633d60969b48e872343d8e87c948439843ba676bf0dce9ca943d38c8943940bf933d1c157d294af4dfbccd3f4477c0b38621c9e51b3de803a80eb09c541cb55156ee5895e05b9b2b3f870f0332e447e9f8a69721ed6d70b479264372f4653fdd57871bb6912867ada585c959286a1729ce15d700f7df04233c516c8e38af582613d98003af32c0061e0e34a99e277caab99ede61b64e073d9dc08d7a4a0ec435d1c53255b69543d3d9c4d550700dba3a18b26a6c1787377a365e414bfdc12617aa36c6a40aa9ac07aac0b033cc39a8bbe3024320b93574a32168cf839f7b264873631867f96880c7f7b6b3"
+      }
+    },
+    "ecs": {
+      "version": "1.12.0"
+    },
+    "service": {
+      "type": "aws"
+    },
+    "event": {
+      "ingested": "2025-07-18T06:34:04.508869865Z",
+      "original": "{\"awsAccountId\":\"851725491209\",\"digestStartTime\":\"2025-07-16T12:34:52Z\",\"digestEndTime\":\"2025-07-16T13:34:52Z\",\"digestS3Bucket\":\"elk-aws-cloudtrail-logs\",\"digestS3Object\":\"AWSLogs/851725491209/CloudTrail-Digest/ca-central-1/2025/07/16/851725491209_CloudTrail-Digest_ca-central-1_ELK-Monitoring_us-east-1_20250716T133452Z.json.gz\",\"digestPublicKeyFingerprint\":\"8487aa0dc6d578b809791a1c54ee36f4\",\"digestSignatureAlgorithm\":\"SHA256withRSA\",\"newestEventTime\":null,\"oldestEventTime\":null,\"previousDigestS3Bucket\":\"elk-aws-cloudtrail-logs\",\"previousDigestS3Object\":\"AWSLogs/851725491209/CloudTrail-Digest/ca-central-1/2025/07/16/851725491209_CloudTrail-Digest_ca-central-1_ELK-Monitoring_us-east-1_20250716T123452Z.json.gz\",\"previousDigestHashValue\":\"243d8abd7d2dc23295bc9160f608a47d9021ed38c4cf3b4c40165f7fa24b4c1f\",\"previousDigestHashAlgorithm\":\"SHA-256\",\"previousDigestSignature\":\"413a2e2febaf981306fe35bd21d6e665bce9dba34c633d60969b48e872343d8e87c948439843ba676bf0dce9ca943d38c8943940bf933d1c157d294af4dfbccd3f4477c0b38621c9e51b3de803a80eb09c541cb55156ee5895e05b9b2b3f870f0332e447e9f8a69721ed6d70b479264372f4653fdd57871bb6912867ada585c959286a1729ce15d700f7df04233c516c8e38af582613d98003af32c0061e0e34a99e277caab99ede61b64e073d9dc08d7a4a0ec435d1c53255b69543d3d9c4d550700dba3a18b26a6c1787377a365e414bfdc12617aa36c6a40aa9ac07aac0b033cc39a8bbe3024320b93574a32168cf839f7b264873631867f96880c7f7b6b3\",\"logFiles\":[]}",
+      "created": "2025-07-18T06:34:00.638Z",
+      "kind": "event",
+      "module": "aws",
+      "type": "info",
+      "dataset": "aws.cloudtrail"
+    },
+    "aws": {
+      "s3": {
+        "bucket": {
+          "name": "elk-aws-cloudtrail-logs",
+          "arn": "arn:aws:s3:::elk-aws-cloudtrail-logs"
+        },
+        "object": {
+          "key": "AWSLogs/851725491209/CloudTrail-Digest/ca-central-1/2025/07/16/851725491209_CloudTrail-Digest_ca-central-1_ELK-Monitoring_us-east-1_20250716T133452Z.json.gz"
+        }
+      },
+      "cloudtrail": {
+        "digest": {
+          "start_time": "2025-07-16T12:34:52.000Z",
+          "previous_s3_bucket": "elk-aws-cloudtrail-logs",
+          "log_files": [],
+          "previous_hash_algorithm": "SHA-256",
+          "end_time": "2025-07-16T13:34:52.000Z",
+          "signature_algorithm": "SHA256withRSA",
+          "s3_bucket": "elk-aws-cloudtrail-logs"
+        }
+      }
+    }
+  },
+  "fields": {
+    "file.path": [
+      "AWSLogs/851725491209/CloudTrail-Digest/ca-central-1/2025/07/16/851725491209_CloudTrail-Digest_ca-central-1_ELK-Monitoring_us-east-1_20250716T133452Z.json.gz"
+    ],
+    "aws.s3.bucket.arn": [
+      "arn:aws:s3:::elk-aws-cloudtrail-logs"
+    ],
+    "aws.cloudtrail.digest.s3_bucket": [
+      "elk-aws-cloudtrail-logs"
+    ],
+    "service.type": [
+      "aws"
+    ],
+    "agent.type": [
+      "filebeat"
+    ],
+    "event.module": [
+      "aws"
+    ],
+    "file.hash.sha256": [
+      "413a2e2febaf981306fe35bd21d6e665bce9dba34c633d60969b48e872343d8e87c948439843ba676bf0dce9ca943d38c8943940bf933d1c157d294af4dfbccd3f4477c0b38621c9e51b3de803a80eb09c541cb55156ee5895e05b9b2b3f870f0332e447e9f8a69721ed6d70b479264372f4653fdd57871bb6912867ada585c959286a1729ce15d700f7df04233c516c8e38af582613d98003af32c0061e0e34a99e277caab99ede61b64e073d9dc08d7a4a0ec435d1c53255b69543d3d9c4d550700dba3a18b26a6c1787377a365e414bfdc12617aa36c6a40aa9ac07aac0b033cc39a8bbe3024320b93574a32168cf839f7b264873631867f96880c7f7b6b3"
+    ],
+    "agent.name": [
+      "ip-172-31-27-85"
+    ],
+    "event.kind": [
+      "event"
+    ],
+    "aws.s3.bucket.name": [
+      "elk-aws-cloudtrail-logs"
+    ],
+    "file.path.text": [
+      "AWSLogs/851725491209/CloudTrail-Digest/ca-central-1/2025/07/16/851725491209_CloudTrail-Digest_ca-central-1_ELK-Monitoring_us-east-1_20250716T133452Z.json.gz"
+    ],
+    "cloud.region": [
+      "us-east-1"
+    ],
+    "fileset.name": [
+      "cloudtrail"
+    ],
+    "aws.cloudtrail.digest.signature_algorithm": [
+      "SHA256withRSA"
+    ],
+    "input.type": [
+      "aws-s3"
+    ],
+    "log.offset": [
+      0
+    ],
+    "agent.hostname": [
+      "ip-172-31-27-85"
+    ],
+    "tags": [
+      "forwarded"
+    ],
+    "aws.cloudtrail.digest.previous_hash_algorithm": [
+      "SHA-256"
+    ],
+    "aws.cloudtrail.digest.previous_s3_bucket": [
+      "elk-aws-cloudtrail-logs"
+    ],
+    "cloud.provider": [
+      ""
+    ],
+    "event.ingested": [
+      "2025-07-18T06:34:04.508Z"
+    ],
+    "@timestamp": [
+      "2025-07-16T13:34:52.000Z"
+    ],
+    "agent.id": [
+      "5137bd51-76ff-4cbf-96c4-5c16e8e79f07"
+    ],
+    "cloud.account.id": [
+      "851725491209"
+    ],
+    "ecs.version": [
+      "1.12.0"
+    ],
+    "event.created": [
+      "2025-07-18T06:34:00.638Z"
+    ],
+    "event.type": [
+      "info"
+    ],
+    "log.file.path": [
+      "https://elk-aws-cloudtrail-logs.s3.us-east-1.amazonaws.com/AWSLogs/851725491209/CloudTrail-Digest/ca-central-1/2025/07/16/851725491209_CloudTrail-Digest_ca-central-1_ELK-Monitoring_us-east-1_20250716T133452Z.json.gz"
+    ],
+    "agent.ephemeral_id": [
+      "293eedd0-6fb5-4afc-934d-72a6bf7e2d71"
+    ],
+    "agent.version": [
+      "8.6.2"
+    ],
+    "aws.cloudtrail.digest.end_time": [
+      "2025-07-16T13:34:52.000Z"
+    ],
+    "aws.cloudtrail.digest.start_time": [
+      "2025-07-16T12:34:52.000Z"
+    ],
+    "aws.s3.object.key": [
+      "AWSLogs/851725491209/CloudTrail-Digest/ca-central-1/2025/07/16/851725491209_CloudTrail-Digest_ca-central-1_ELK-Monitoring_us-east-1_20250716T133452Z.json.gz"
+    ],
+    "event.dataset": [
+      "aws.cloudtrail"
+    ]
+  },
+  "ignored_field_values": {
+    "event.original": [
+      "{\"awsAccountId\":\"851725491209\",\"digestStartTime\":\"2025-07-16T12:34:52Z\",\"digestEndTime\":\"2025-07-16T13:34:52Z\",\"digestS3Bucket\":\"elk-aws-cloudtrail-logs\",\"digestS3Object\":\"AWSLogs/851725491209/CloudTrail-Digest/ca-central-1/2025/07/16/851725491209_CloudTrail-Digest_ca-central-1_ELK-Monitoring_us-east-1_20250716T133452Z.json.gz\",\"digestPublicKeyFingerprint\":\"8487aa0dc6d578b809791a1c54ee36f4\",\"digestSignatureAlgorithm\":\"SHA256withRSA\",\"newestEventTime\":null,\"oldestEventTime\":null,\"previousDigestS3Bucket\":\"elk-aws-cloudtrail-logs\",\"previousDigestS3Object\":\"AWSLogs/851725491209/CloudTrail-Digest/ca-central-1/2025/07/16/851725491209_CloudTrail-Digest_ca-central-1_ELK-Monitoring_us-east-1_20250716T123452Z.json.gz\",\"previousDigestHashValue\":\"243d8abd7d2dc23295bc9160f608a47d9021ed38c4cf3b4c40165f7fa24b4c1f\",\"previousDigestHashAlgorithm\":\"SHA-256\",\"previousDigestSignature\":\"413a2e2febaf981306fe35bd21d6e665bce9dba34c633d60969b48e872343d8e87c948439843ba676bf0dce9ca943d38c8943940bf933d1c157d294af4dfbccd3f4477c0b38621c9e51b3de803a80eb09c541cb55156ee5895e05b9b2b3f870f0332e447e9f8a69721ed6d70b479264372f4653fdd57871bb6912867ada585c959286a1729ce15d700f7df04233c516c8e38af582613d98003af32c0061e0e34a99e277caab99ede61b64e073d9dc08d7a4a0ec435d1c53255b69543d3d9c4d550700dba3a18b26a6c1787377a365e414bfdc12617aa36c6a40aa9ac07aac0b033cc39a8bbe3024320b93574a32168cf839f7b264873631867f96880c7f7b6b3\",\"logFiles\":[]}"
+    ]
+  }
+}
