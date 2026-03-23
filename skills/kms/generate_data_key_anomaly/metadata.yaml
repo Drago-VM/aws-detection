@@ -1,0 +1,12 @@
+name: kms_generate_data_key_anomaly
+description: Detects unusual KMS GenerateDataKey calls — potential attacker encrypting data for exfiltration
+severity: HIGH
+mitre_technique: T1486
+mitre_tactic: Impact
+aws_source: CloudTrail
+author: VM
+tags:
+  - kms
+  - encryption
+  - exfiltration
+  - data-theft

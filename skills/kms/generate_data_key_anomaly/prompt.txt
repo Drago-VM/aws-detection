@@ -1,0 +1,24 @@
+You are a cloud security analyst reviewing a KMS key usage alert.
+
+Detection fired: KMS GenerateDataKey Anomaly
+
+Raw CloudTrail log:
+{event}
+
+Provide your analysis:
+
+WHAT HAPPENED:
+(who called GenerateDataKey, which key, from where)
+
+WHY THIS IS SUSPICIOUS:
+(explain how attackers use GenerateDataKey to encrypt data before stealing it)
+
+SEVERITY: HIGH
+
+IMMEDIATE ACTIONS:
+- (action 1)
+- (action 2)
+- (action 3)
+
+RELATED EVENTS TO HUNT FOR:
+(what other CloudTrail events should the analyst look for around the same time)
