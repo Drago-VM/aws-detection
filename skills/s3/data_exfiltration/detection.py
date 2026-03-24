@@ -2,64 +2,8 @@ import json
 import anthropic
 import os
 
-# ── ABOUT THIS SKILL ─────────────────────────────────────────────────
-# Detects S3 data exfiltration using real CloudTrail logs
-# ingested via Filebeat into Elasticsearch/ELK.
-#
-# ── HOW ELK WRAPS CLOUDTRAIL LOGS ───────────────────────────────────
-# When Filebeat reads CloudTrail from S3 and ships to ELK, the document
-# has two layers:
-#
-# Layer 1 — ELK metadata (indexed, searchable fields):
-#   _source.aws.cloudtrail.flattened.additional_eventdata.bytesTransferredOut
-#   _source.aws.cloudtrail.flattened.request_parameters.bucketName
-#   _source.source.ip
-#   _source.user.name
-#
-# Layer 2 — raw CloudTrail JSON string (the original event, unparsed):
-#   _source.event.original  ← this is a JSON string you must parse yourself
-#
-# This skill reads from Layer 1 (already parsed by ELK) for speed,
-# but falls back to Layer 2 (raw event) if fields are missing.
-#
-# ── REAL LOG EXAMPLE (what comes from ELK) ──────────────────────────
-# {
-#   "_source": {
-#     "source": {"ip": "54.242.89.206"},           ← source IP
-#     "user": {"name": "ELK"},                     ← IAM user
-#     "event": {"action": "GetObject"},            ← what happened
-#     "aws": {
-#       "cloudtrail": {
-#         "flattened": {
-#           "additional_eventdata": {
-#             "bytesTransferredOut": 902            ← bytes downloaded
-#           },
-#           "request_parameters": {
-#             "bucketName": "elk-aws-cloudtrail-logs",
-#             "key": "AWSLogs/851725491209/..."     ← file path
-#           }
-#         }
-#       }
-#     },
-#     "event": {
-#       "original": "{...raw cloudtrail json...}"  ← full raw event
-#     }
-#   }
-# }
-#
-# ── WHY YOUR SAMPLE EVENT DOES NOT TRIGGER ──────────────────────────
-# The sample_event.json you provided is a LEGITIMATE event:
-#   - bytesTransferredOut = 902 bytes (tiny, not exfiltration)
-#   - sourceIP = 54.242.89.206 (Amazon AWS IP — trusted)
-#   - user = ELK (your Filebeat agent reading its own logs)
-#   - bucket = elk-aws-cloudtrail-logs (your own logging bucket)
-# Your detection should correctly print [OK] for this event.
-# ─────────────────────────────────────────────────────────────────────
-
-# Flag downloads over 50MB as suspicious
 LARGE_DOWNLOAD_BYTES = 50 * 1024 * 1024
 
-# AWS-owned IP prefixes (Filebeat, Lambda, ELK on EC2 etc.)
 TRUSTED_IP_PREFIXES = (
     "10.", "172.16.", "172.17.", "172.18.", "172.19.",
     "172.20.", "172.21.", "172.22.", "172.23.", "172.24.",
@@ -68,7 +12,6 @@ TRUSTED_IP_PREFIXES = (
     "54.239.", "54.242.", "52.95.", "52.46.",   # AWS internal service IPs
 )
 
-# Trusted AWS service user agents (Filebeat, SDK automation etc.)
 TRUSTED_USER_AGENTS = (
     "aws-sdk-go",
     "aws-sdk-java",
@@ -79,15 +22,11 @@ TRUSTED_USER_AGENTS = (
     "elasticmapreduce",
 )
 
-# Buckets that should never be accessed from outside
 SENSITIVE_BUCKETS = (
     "financial", "payroll", "confidential", "backup",
     "audit", "credentials", "secrets", "prod-data",
     "customer", "pii", "hr-", "legal"
 )
-
-
-# ── HELPER: PARSE ELK DOCUMENT ───────────────────────────────────────
 
 def extract_source(elk_doc):
     """
@@ -133,8 +72,6 @@ def get_field(source, *paths):
     return None
 
 
-# ── HELPER: CHECKS ────────────────────────────────────────────────────
-
 def is_trusted_ip(ip):
     """Returns True if IP belongs to a trusted internal or AWS service range."""
     return any(ip.startswith(p) for p in TRUSTED_IP_PREFIXES)
@@ -152,7 +89,6 @@ def is_sensitive_bucket(bucket_name):
     return any(kw in name_lower for kw in SENSITIVE_BUCKETS)
 
 
-# ── MAIN DETECTION LOGIC ──────────────────────────────────────────────
 
 def detect(elk_doc):
     """
@@ -162,8 +98,7 @@ def detect(elk_doc):
     source = extract_source(elk_doc)
     raw = get_raw_cloudtrail(source)
 
-    # ── Extract key fields ─────────────────────────────────────────────
-    # Event action — prefer ELK parsed field, fallback to raw CloudTrail
+
     action = (
         get_field(source, "event.action") or
         raw.get("eventName", "")
@@ -201,25 +136,23 @@ def detect(elk_doc):
         raw.get("userAgent", "")
     )
 
-    # ── Must be a GetObject event ──────────────────────────────────────
     if action != "GetObject":
         return False, f"Not a GetObject event (got: {action})"
 
-    # ── Trusted internal service — skip ───────────────────────────────
     if is_trusted_ip(source_ip) and is_trusted_agent(user_agent):
         return False, (
             f"Trusted source — IP {source_ip} is an AWS internal IP "
             f"and user agent matches known SDK ({user_agent[:40]})"
         )
 
-    # ── External IP + sensitive bucket — always alert ─────────────────
+    # ── External IP + sensitive bucket 
     if not is_trusted_ip(source_ip) and is_sensitive_bucket(bucket):
         return True, (
             f"External IP {source_ip} accessed sensitive bucket '{bucket}' "
             f"— possible targeted exfiltration"
         )
 
-    # ── External IP + large download — alert ──────────────────────────
+    # ── External IP + large download 
     if not is_trusted_ip(source_ip) and bytes_out > LARGE_DOWNLOAD_BYTES:
         mb = bytes_out / (1024 * 1024)
         return True, (
@@ -233,7 +166,7 @@ def detect(elk_doc):
     )
 
 
-# ── CLAUDE ENRICHMENT ─────────────────────────────────────────────────
+# ── CLAUDE ENRICHMENT 
 
 def enrich_with_claude(elk_doc):
     """
@@ -247,7 +180,6 @@ def enrich_with_claude(elk_doc):
     with open(prompt_file) as f:
         template = f.read()
 
-    # Give Claude both layers of context
     context = {
         "elk_metadata": {
             "source_ip": get_field(source, "source.ip"),
@@ -283,8 +215,6 @@ def enrich_with_claude(elk_doc):
     )
     return response.content[0].text
 
-
-# ── RUN ───────────────────────────────────────────────────────────────
 
 def run(elk_doc):
     source = extract_source(elk_doc)

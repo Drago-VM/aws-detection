@@ -2,68 +2,8 @@ import json
 import anthropic
 import os
 
-# ── ABOUT THIS SKILL ──────────────────────────────────────────────────
-# Detects IAM GetUserPolicy calls that suggest reconnaissance —
-# a common first step before privilege escalation attacks.
-#
-# ── WHAT GetUserPolicy DOES ───────────────────────────────────────────
-# GetUserPolicy returns the inline policy attached to an IAM user.
-# Attackers use this to map out what permissions users have before:
-#   1. Trying to steal credentials from a more-privileged user
-#   2. Creating a new policy that mimics an existing powerful one
-#   3. Understanding what actions won't be logged/blocked
-#
-# ── ABOUT YOUR REAL LOG ───────────────────────────────────────────────
-# This skill was built from a real ELK/CloudTrail log where:
-#
-#   Caller:       queue-inspector (IAMUser)
-#   Target:       queue-inspector (reading their OWN policy)
-#   Policy:       queue-inspector-role
-#   Source IP:    36.255.87.4  →  Bengaluru, India (external ISP)
-#   ASN:          Gatik Business Solutions (not AWS infrastructure)
-#   User Agent:   aws-cli/2.15.28 Windows/10  (human on laptop)
-#   Time:         2025-07-18T10:58:20Z
-#
-# Why this is interesting:
-#   - User is running AWS CLI from a Windows laptop in India
-#   - IP is external (not an AWS/internal IP)
-#   - Reading own policy via CLI = checking what you're allowed to do
-#   - This is LOW-MEDIUM risk: could be legitimate dev work,
-#     OR could be an attacker who just got credentials and is
-#     exploring what access they have
-#
-# ── ELK DOCUMENT STRUCTURE FOR IAM EVENTS ────────────────────────────
-# IAM events differ slightly from S3 events in ELK:
-#
-#   _source.event.action          = "GetUserPolicy"
-#   _source.user.name             = caller's username
-#   _source.user.target.name      = target username (whose policy is read)
-#   _source.source.ip             = IP address of caller
-#   _source.source.geo.*          = GeoIP enrichment by ELK
-#   _source.source.as.organization.name = ASN/ISP name
-#   _source.user_agent.original   = CLI/SDK string
-#   _source.user_agent.os.name    = OS (Windows/Linux/Mac)
-#   _source.aws.cloudtrail.flattened.request_parameters.policyName
-#   _source.event.original        = raw CloudTrail JSON string
-#
-# ── HOW THIS DETECTION SCORES RISK ───────────────────────────────────
-# Rather than a simple True/False, this skill assigns a risk score
-# based on multiple signals. Each suspicious signal adds points.
-# If total score >= threshold, the alert fires.
-#
-#   +30  External IP (not AWS/internal range)
-#   +20  Human CLI tool on Windows/Mac (not automation)
-#   +25  Reading a DIFFERENT user's policy (cross-user recon)
-#   +20  Reading a high-privilege policy name
-#   +15  Call outside business hours (UTC 22:00 - 06:00)
-#   +10  Caller username matches suspicious patterns (temp/contractor)
-#
-# Score >= 40 = alert fires
-# ─────────────────────────────────────────────────────────────────────
-
 ALERT_THRESHOLD = 40
 
-# AWS internal and service IP prefixes — these are trusted
 TRUSTED_IP_PREFIXES = (
     "10.", "172.16.", "172.17.", "172.18.", "172.19.",
     "172.20.", "172.21.", "172.22.", "172.23.", "172.24.",
@@ -72,7 +12,6 @@ TRUSTED_IP_PREFIXES = (
     "54.239.", "54.242.", "52.95.", "52.46.",
 )
 
-# IAM automation typically uses these user agents — not suspicious
 TRUSTED_USER_AGENTS = (
     "aws-sdk-java",
     "Boto3",
@@ -81,26 +20,20 @@ TRUSTED_USER_AGENTS = (
     "iam.amazonaws.com",
 )
 
-# Policy names that suggest high privilege
 HIGH_VALUE_POLICY_KEYWORDS = (
     "admin", "administrator", "fullaccess", "full-access",
     "poweruser", "root", "iam", "billing",
     "securityaudit", "readonly",
 )
 
-# Username patterns that suggest lower-trust identities
 SUSPICIOUS_CALLER_PATTERNS = (
     "contractor", "temp", "tmp", "test",
     "external", "vendor", "intern", "readonly",
     "audit", "scanner", "bot",
 )
 
-# Business hours in UTC (adjust for your timezone)
 BUSINESS_HOURS_START = 6   # 06:00 UTC
 BUSINESS_HOURS_END = 22    # 22:00 UTC
-
-
-# ── HELPERS ───────────────────────────────────────────────────────────
 
 def extract_source(elk_doc):
     """Unwrap _source if present, otherwise treat doc as source directly."""
@@ -146,10 +79,8 @@ def is_human_cli(user_agent):
     if not user_agent:
         return False
     ua_lower = user_agent.lower()
-    # Trusted automation agents → not human
     if any(t.lower() in ua_lower for t in TRUSTED_USER_AGENTS):
         return False
-    # AWS CLI on Windows or Mac → human
     if "aws-cli" in ua_lower and (
         "windows" in ua_lower or "mac" in ua_lower or "darwin" in ua_lower
     ):
@@ -172,14 +103,11 @@ def is_suspicious_caller(username):
 def is_outside_business_hours(timestamp_str):
     """Returns True if event happened outside UTC business hours."""
     try:
-        # timestamp looks like: 2025-07-18T10:58:20.000Z
         hour = int(timestamp_str[11:13])
         return hour < BUSINESS_HOURS_START or hour >= BUSINESS_HOURS_END
     except (TypeError, IndexError, ValueError):
         return False
 
-
-# ── MAIN DETECTION: RISK SCORING ─────────────────────────────────────
 
 def score_event(elk_doc):
     """
@@ -190,22 +118,17 @@ def score_event(elk_doc):
     source = extract_source(elk_doc)
     raw = get_raw_cloudtrail(source)
 
-    # ── Extract all relevant fields ────────────────────────────────────
-
-    # Event action
     action = (
         deep_get(source, "event", "action") or
         raw.get("eventName", "")
     )
 
-    # Caller username
     caller = (
         deep_get(source, "user", "name") or
         deep_get(source, "related", "user", 0) or
         raw.get("userIdentity", {}).get("userName", "unknown")
     )
 
-    # Target username (whose policy is being read)
     target = (
         deep_get(source, "user", "target", "name") or
         deep_get(source, "aws", "cloudtrail", "flattened",
@@ -213,7 +136,6 @@ def score_event(elk_doc):
         raw.get("requestParameters", {}).get("userName", "unknown")
     )
 
-    # Policy name being read
     policy_name = (
         deep_get(source, "aws", "cloudtrail", "flattened",
                  "request_parameters", "policyName") or
@@ -227,7 +149,7 @@ def score_event(elk_doc):
         raw.get("sourceIPAddress", "")
     )
 
-    # GeoIP enrichment (ELK adds this automatically)
+    # GeoIP enrichment 
     country = deep_get(source, "source", "geo", "country_name") or "unknown"
     city = deep_get(source, "source", "geo", "city_name") or "unknown"
     asn_org = deep_get(source, "source", "as", "organization", "name") or "unknown"
@@ -238,13 +160,11 @@ def score_event(elk_doc):
         raw.get("userAgent", "")
     )
 
-    # OS from user agent
     os_name = deep_get(source, "user_agent", "os", "name") or ""
 
     # Timestamp
     timestamp = source.get("@timestamp", "")
 
-    # ── Score each signal ──────────────────────────────────────────────
     score = 0
     signals = []
 
@@ -328,8 +248,6 @@ def detect(elk_doc):
     return triggered, score, signals, fields
 
 
-# ── CLAUDE ENRICHMENT ─────────────────────────────────────────────────
-
 def enrich_with_claude(elk_doc, score, signals, fields):
     """
     Sends the suspicious event + risk score breakdown to Claude
@@ -366,8 +284,6 @@ def enrich_with_claude(elk_doc, score, signals, fields):
     )
     return response.content[0].text
 
-
-# ── RUN ───────────────────────────────────────────────────────────────
 
 def run(elk_doc):
     triggered, score, signals, fields = detect(elk_doc)

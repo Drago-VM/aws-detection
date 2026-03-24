@@ -3,59 +3,8 @@ import base64
 import anthropic
 import os
 
-# ── ABOUT THIS SKILL ──────────────────────────────────────────────────
-# Detects anomalous S3 PutObject calls where the encryption configuration
-# suggests ransomware staging, data theft prep, or privilege abuse.
-#
-# ── WHAT THIS REAL LOG SHOWS ─────────────────────────────────────────
-# Your sample_event.json is a 100% LEGITIMATE event:
-#
-#   Caller:     cloudtrail.amazonaws.com  (AWSService type — not human)
-#   File:       AWSLogs/.../CloudTrail/...json.gz  (CloudTrail writing its own logs)
-#   KMS key:    arn:aws:kms:us-east-1:851725491209:...  (same account = trusted)
-#   ACL:        bucket-owner-full-control  (standard CloudTrail ACL)
-#   Bytes in:   2108  (tiny 2KB log file)
-#   Context:    base64 decodes to CloudTrail ARN  (proves legitimacy)
-#
-# The detection should correctly print [OK] for this event.
-#
-# ── WHAT A MALICIOUS PutObject LOOKS LIKE ────────────────────────────
-# The same event becomes suspicious when:
-#
-#   Caller:     IAMUser or AssumedRole  (human or script, not AWSService)
-#   KMS key:    belongs to a DIFFERENT account  (attacker controls the key)
-#   ACL:        anything other than bucket-owner-full-control
-#   File ext:   .enc / .locked / .crypto / .ransom
-#   Context:    missing, empty, or doesn't reference your own resources
-#   Source IP:  real external IP (not a service name like cloudtrail.amazonaws.com)
-#
-# ── HOW KMS ENCRYPTION CONTEXT WORKS ─────────────────────────────────
-# The x-amz-server-side-encryption-context is base64-encoded JSON.
-# CloudTrail always sets it to its own ARN, e.g.:
-#   {"aws:cloudtrail:arn":"arn:aws:cloudtrail:us-east-1:851725491209:trail/..."}
-#
-# An attacker using their own KMS key would have either:
-#   - No context at all
-#   - A context referencing a foreign account ARN
-#   - A context that doesn't match any known AWS service pattern
-#
-# ── ELK FIELD STRUCTURE FOR PutObject EVENTS ─────────────────────────
-# Unlike IAM events, S3 PutObject events in ELK may NOT have:
-#   - source.ip  (when caller is AWSService, sourceIPAddress is a hostname)
-#   - source.geo  (no GeoIP for service callers)
-#   - user.name  (no user for AWSService type)
-#
-# Instead look at:
-#   aws.cloudtrail.user_identity.type       = "AWSService" or "IAMUser"
-#   aws.cloudtrail.user_identity.invoked_by = "cloudtrail.amazonaws.com"
-#   aws.cloudtrail.flattened.request_parameters.*  = encryption details
-#   source.address  = either IP or service hostname
-# ─────────────────────────────────────────────────────────────────────
-
-# Your AWS account ID — KMS keys from other accounts are suspicious
 OWN_ACCOUNT_ID = "851725491209"  # update if needed
 
-# AWS services that legitimately write encrypted objects to S3
 TRUSTED_AWS_SERVICES = (
     "cloudtrail.amazonaws.com",
     "config.amazonaws.com",
@@ -65,7 +14,6 @@ TRUSTED_AWS_SERVICES = (
     "delivery.logs.amazonaws.com",
 )
 
-# Legitimate S3 key path prefixes written by AWS services
 TRUSTED_KEY_PREFIXES = (
     "AWSLogs/",
     "aws-controltower/",
@@ -73,17 +21,13 @@ TRUSTED_KEY_PREFIXES = (
     "CloudTrail/",
 )
 
-# File extensions that suggest attacker-controlled encryption
 RANSOMWARE_EXTENSIONS = (
     ".enc", ".locked", ".crypto", ".crypt",
     ".ransom", ".encrypted", ".crypted",
 )
 
-# Standard encryption types — unexpected values are suspicious
 KNOWN_ENCRYPTION_TYPES = ("aws:kms", "AES256", "aws:kms:dsse")
 
-
-# ── HELPERS ───────────────────────────────────────────────────────────
 
 def extract_source(elk_doc):
     return elk_doc.get("_source", elk_doc)
@@ -150,7 +94,6 @@ def is_aws_service_caller(source):
     if identity_type == "AWSService":
         return True
 
-    # Also check raw event
     raw = get_raw_cloudtrail(source)
     return raw.get("userIdentity", {}).get("type") == "AWSService"
 
@@ -178,14 +121,12 @@ def is_trusted_service_caller(source):
     if invoked_by not in TRUSTED_AWS_SERVICES:
         return False
 
-    # Extra check: is the file path a known AWS-service path?
     key = deep_get(
         source, "aws", "cloudtrail", "flattened", "request_parameters", "key"
     ) or ""
     return any(key.startswith(prefix) for prefix in TRUSTED_KEY_PREFIXES)
 
 
-# ── MAIN DETECTION ────────────────────────────────────────────────────
 
 def detect(elk_doc):
     """
@@ -201,7 +142,6 @@ def detect(elk_doc):
     source = extract_source(elk_doc)
     raw = get_raw_cloudtrail(source)
 
-    # Must be PutObject
     action = (
         deep_get(source, "event", "action") or
         raw.get("eventName", "")
@@ -209,7 +149,6 @@ def detect(elk_doc):
     if action != "PutObject":
         return False, f"Not a PutObject event (got: {action})", {}
 
-    # Extract key fields
     req_params = (
         deep_get(source, "aws", "cloudtrail", "flattened", "request_parameters")
         or raw.get("requestParameters", {})
@@ -269,7 +208,7 @@ def detect(elk_doc):
         "timestamp": source.get("@timestamp", ""),
     }
 
-    # ── CHECK 1: Trusted AWS service writing to known path → safe ─────
+    # ── CHECK 1: Trusted AWS service writing to known path → safe 
     if is_trusted_service_caller(source):
         return False, (
             f"Trusted AWS service write — invokedBy={invoked_by}, "
@@ -277,7 +216,7 @@ def detect(elk_doc):
             f"KMS key belongs to account {kms_account}"
         ), details
 
-    # ── CHECK 2: KMS key from a foreign account → high risk ───────────
+    # ── CHECK 2: KMS key from a foreign account → high risk 
     if kms_key_arn and kms_account and kms_account != recipient_account:
         return True, (
             f"FOREIGN KMS KEY — key account {kms_account} does not match "
@@ -285,31 +224,30 @@ def detect(elk_doc):
             f"Attacker may control the decryption key: {kms_key_arn}"
         ), details
 
-    # ── CHECK 3: Ransomware file extension ────────────────────────────
+    # ── CHECK 3: Ransomware file extension 
     if any(file_key.lower().endswith(ext) for ext in RANSOMWARE_EXTENSIONS):
         return True, (
             f"RANSOMWARE EXTENSION — file '{file_key}' has a suspicious "
             f"extension suggesting attacker-controlled encryption"
         ), details
 
-    # ── CHECK 4: Encryption context references a foreign account ──────
+    # ── CHECK 4: Encryption context references a foreign account 
     if kms_context:
         context_str = json.dumps(kms_context)
-        # If context contains an ARN, check it references own account
         if "arn:aws" in context_str and recipient_account not in context_str:
             return True, (
                 f"SUSPICIOUS KMS CONTEXT — encryption context references "
                 f"resources outside account {recipient_account}: {kms_context}"
             ), details
 
-    # ── CHECK 5: Unknown encryption type ──────────────────────────────
+    # ── CHECK 5: Unknown encryption type 
     if encryption_type and encryption_type not in KNOWN_ENCRYPTION_TYPES:
         return True, (
             f"UNKNOWN ENCRYPTION TYPE — '{encryption_type}' is not a "
             f"recognised AWS SSE type. Possible misconfiguration or evasion."
         ), details
 
-    # ── CHECK 6: Human/IAM caller using KMS (lower risk, still note) ──
+    # ── CHECK 6: Human/IAM caller using KMS 
     if caller_type == "IAMUser" and kms_key_arn:
         return True, (
             f"HUMAN KMS UPLOAD — IAM user '{caller_name}' directly uploaded "
@@ -323,7 +261,7 @@ def detect(elk_doc):
     ), details
 
 
-# ── CLAUDE ENRICHMENT ─────────────────────────────────────────────────
+# ── CLAUDE ENRICHMENT 
 
 def enrich_with_claude(reason, details, raw):
     prompt_file = os.path.join(os.path.dirname(__file__), "prompt.txt")
@@ -351,8 +289,6 @@ def enrich_with_claude(reason, details, raw):
     )
     return response.content[0].text
 
-
-# ── RUN ───────────────────────────────────────────────────────────────
 
 def run(elk_doc):
     source = extract_source(elk_doc)
@@ -390,7 +326,6 @@ def run(elk_doc):
     else:
         print(f"[OK] No alert — {reason}\n")
 
-        # Helpful explanation of why this specific log is safe
         kms_context_b64 = req_params.get(
             "x-amz-server-side-encryption-context", ""
         )
