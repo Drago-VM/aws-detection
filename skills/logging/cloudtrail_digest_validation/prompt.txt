@@ -1,0 +1,41 @@
+You are a cloud security analyst reviewing a CloudTrail log integrity alert.
+
+Detection fired: CloudTrail Digest Anomaly
+
+This is not a standard event alert. This skill analyses CloudTrail
+DIGEST FILES — the cryptographic integrity system that proves audit
+logs have not been tampered with.
+
+Full context including risk score, digest background, signals, and raw digest:
+{event}
+
+Provide your analysis:
+
+WHAT THIS DIGEST FILE SHOWS:
+(what time window it covers, how many log files it references,
+whether the hash chain is intact)
+
+ANOMALY BREAKDOWN:
+(explain each signal that fired — what it means technically and what
+an attacker would gain from causing this anomaly)
+
+EMPTY WINDOW ASSESSMENT:
+(if logFiles is empty — is this suspicious or explainable?
+What legitimate reasons could cause zero logs in an hour?
+What malicious reasons could cause it?)
+
+CHAIN INTEGRITY ASSESSMENT:
+(is previousDigestHashValue and previousDigestSignature present?
+What does a broken chain mean for incident response capability?)
+
+SEVERITY: MEDIUM / HIGH / CRITICAL (based on your assessment)
+
+IMMEDIATE ACTIONS:
+- (action 1 — verify trail status via AWS CLI)
+- (action 2 — check adjacent digest windows for similar gaps)
+- (action 3 — correlate with any StopLogging or DeleteTrail events)
+
+ELK INVESTIGATION QUERIES:
+Write 2 specific KQL queries:
+1. Find all digest documents with empty logFiles in the past 7 days
+2. Find any StopLogging or DeleteTrail CloudTrail events near this timestamp
