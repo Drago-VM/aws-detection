@@ -1,27 +1,9 @@
-"""
-shared/claude_utils.py
-
-Central Claude API utility for all aws-detection-skills.
-
-Every detection skill imports from here instead of duplicating
-API call logic. This gives consistent behaviour across all skills:
-  - Model pinned in one place (easy to upgrade)
-  - Retry logic on transient failures
-  - Token usage tracking
-  - Structured error handling
-  - Standard output formatting
-
-Usage in any detection.py:
-    from shared.claude_utils import ask_claude, format_alert_output
-"""
-
 import os
 import time
 import json
 import anthropic
 
-# ── CONFIGURATION ─────────────────────────────────────────────────────
-# Change model or token limit here → applies to all skills instantly
+# ── CONFIGURATION 
 
 MODEL = "claude-sonnet-4-20250514"
 MAX_TOKENS = 1024
@@ -29,7 +11,7 @@ MAX_RETRIES = 3
 RETRY_DELAY_SECONDS = 2
 
 
-# ── CORE API CALL ─────────────────────────────────────────────────────
+# ── CORE API CALL 
 
 def ask_claude(prompt: str, system_prompt: str = None) -> dict:
     """
@@ -127,7 +109,7 @@ def _error_response(message: str) -> dict:
     }
 
 
-# ── PROMPT LOADER ─────────────────────────────────────────────────────
+# ── PROMPT LOADER 
 
 def load_prompt(skill_dir: str, context: dict) -> str:
     """
@@ -160,7 +142,7 @@ def load_prompt(skill_dir: str, context: dict) -> str:
     return template.replace("{event}", json.dumps(context, indent=2))
 
 
-# ── OUTPUT FORMATTER ──────────────────────────────────────────────────
+# ── OUTPUT FORMATTER 
 
 def format_alert_output(
     skill_name: str,
@@ -204,9 +186,6 @@ def format_alert_output(
         print(f"[OK] {skill_name} — {reason}")
 
 
-# ── ELK DOCUMENT HELPERS ──────────────────────────────────────────────
-# Shared field extraction utilities used by multiple skills.
-# Centralised here to avoid duplication across detection.py files.
 
 def extract_source(elk_doc: dict) -> dict:
     """Unwraps _source if present, otherwise returns doc as-is."""
@@ -302,9 +281,6 @@ def is_outside_business_hours(timestamp_str: str,
         return False
 
 
-# ── QUICK TEST ────────────────────────────────────────────────────────
-# Run directly to verify your API key works:
-#   python shared/claude_utils.py
 
 if __name__ == "__main__":
     print("Testing Claude API connection...")
