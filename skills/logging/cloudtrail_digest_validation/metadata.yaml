@@ -1,0 +1,62 @@
+name: cloudtrail_digest_validation
+description: >
+  Analyses CloudTrail Digest files for integrity anomalies that indicate
+  log tampering, audit trail gaps, or defensive evasion.
+
+  This skill is fundamentally different from all others — it does NOT
+  watch for suspicious API calls. Instead it watches CloudTrail's own
+  integrity system for signs of tampering or suppression.
+
+  Key anomalies detected:
+    - Empty log windows (logFiles=[]) during business hours
+      — possible StopLogging used to hide attacker activity
+    - Hash chain breaks (missing previousDigestHashValue/Signature)
+      — possible digest file deletion to destroy forensic evidence
+    - Signature algorithm anomalies
+      — possible forged digest using non-standard algorithm
+    - Abnormal window duration (not ~60 minutes)
+      — possible logging pause and restart
+    - Digest bucket mismatches
+      — possible redirect of audit trail to attacker-controlled bucket
+
+  ELK document structure is completely different from event documents:
+    No event.action, no userIdentity, no sourceIPAddress, no source.ip.
+    Uses aws.cloudtrail.digest.* fields and event.original for raw digest JSON.
+
+  Real log insight: your sample shows logFiles=[] with newestEventTime=null,
+  meaning zero events were captured in the 12:34-13:34 UTC window on
+  2025-07-16. This scores 20 (off-hours empty window) — below threshold
+  but worth noting.
+
+severity: HIGH
+mitre_technique: T1562.008
+mitre_tactic: Defense Evasion
+mitre_description: Disable or Modify Cloud Logs
+aws_source: CloudTrail Digest Files (CloudTrail-Digest/ S3 prefix, via Filebeat → ELK)
+log_format: CloudTrail Digest document — no userIdentity, no sourceIPAddress
+
+detection_logic:
+  alert_threshold: 25
+  scoring:
+    empty_window_business_hours: +40
+    empty_window_off_hours:      +20
+    hash_chain_break:            +35
+    signature_algorithm_anomaly: +30
+    abnormal_window_duration:    +25
+    digest_bucket_mismatch:      +20
+    hash_algorithm_downgrade:    +15
+
+real_log_finding:
+  observation: "logFiles=[] and newestEventTime=null for 12:34-13:34 UTC on 2025-07-16"
+  score: 20
+  verdict: "Below threshold (off-hours empty window) — no alert, but NOTICE issued"
+
+author: VM
+tags:
+  - cloudtrail
+  - integrity
+  - defense-evasion
+  - digest
+  - tamper-detection
+  - elk
+  - filebeat
