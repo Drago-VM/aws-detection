@@ -52,11 +52,7 @@ aws-detection-skills/
 |   |       ├── metadata.yaml
 │   │       ├── detection.py
 │   │       ├── prompt.txt
-│   │       └── tests/sample.json
-│   │
-│   └── s3/
-│
-│   │       └── tests/sample.json    
+│   │       └── tests/sample.json   
 │   └── get_user_policy_anomaly/
 |   |       ├── metadata.yaml
 │   │       ├── detection.py
